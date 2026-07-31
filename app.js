@@ -119,7 +119,7 @@
     { id:'tabemono', group:'genba', icon:'food', live:true, roles:['staff','manager','owner','hq'],
       name:{ ja:'食べ残し・食材ロス報告', en:'Food Waste & Loss', vi:'Thức ăn thừa & hao hụt' },
       desc:{ ja:'お客様の残し／食材ロスを記録', en:'Log leftovers / ingredient loss', vi:'Ghi đồ thừa / hao hụt' } },
-    { id:'firstphoto', group:'genba', icon:'camera', roles:['staff','manager','owner','hq'],
+    { id:'firstphoto', group:'genba', icon:'camera', soon:true, roles:['staff','manager','owner','hq'],
       name:{ ja:'一食目写真の報告', en:'First-plate Photo', vi:'Ảnh món đầu tiên' },
       desc:{ ja:'提供直後の一枚を本部へ', en:'Send the first serving photo', vi:'Gửi ảnh ngay khi phục vụ' } },
     { id:'kizuki', group:'genba', icon:'idea', roles:['staff','manager','owner','hq'],
@@ -137,10 +137,10 @@
     { id:'checklist', group:'genba', icon:'check', roles:['staff','manager','owner','hq'],
       name:{ ja:'開店・清掃チェック', en:'Opening & Cleaning', vi:'Mở cửa & Vệ sinh' },
       desc:{ ja:'毎日の開店前チェック', en:'Daily pre-open checklist', vi:'Kiểm tra trước khi mở cửa' } },
-    { id:'links', group:'genba', icon:'link', roles:['staff','manager','owner','hq'],
+    { id:'links', group:'genba', icon:'link', soon:true, roles:['staff','manager','owner','hq'],
       name:{ ja:'リンク集', en:'Quick Links', vi:'Liên kết' },
       desc:{ ja:'初期設定・発注などの必要リンク', en:'Setup, ordering and key links', vi:'Cài đặt, đặt hàng, liên kết' } },
-    { id:'inventory', group:'storeops', icon:'box', roles:['manager','owner','hq'],
+    { id:'inventory', group:'storeops', icon:'box', soon:true, roles:['manager','owner','hq'],
       name:{ ja:'棚卸・在庫入力', en:'Stocktake', vi:'Kiểm kho' },
       desc:{ ja:'品目ごとの在庫をスマホで入力', en:'Enter stock by item on your phone', vi:'Nhập tồn kho theo mặt hàng' } },
     { id:'openreg', group:'storeops', icon:'coins', roles:['manager','owner','hq'],
@@ -149,7 +149,7 @@
     { id:'storevideo', group:'storeops', icon:'video', roles:['staff','manager','owner','hq'],
       name:{ ja:'店内動画の共有', en:'In-store Video', vi:'Video trong quán' },
       desc:{ ja:'店内一周の動画リンクを共有', en:'Share store walkthrough videos', vi:'Chia sẻ video trong quán' } },
-    { id:'manual', group:'learn', icon:'book', roles:['staff','manager','owner','hq'],
+    { id:'manual', group:'learn', icon:'book', soon:true, roles:['staff','manager','owner','hq'],
       name:{ ja:'マニュアル', en:'Manuals', vi:'Cẩm nang' },
       desc:{ ja:'理念・接客・衛生・商品', en:'Values, service, hygiene, menu', vi:'Triết lý, phục vụ, vệ sinh' } },
     { id:'survey', group:'learn', icon:'star', roles:['staff','manager','owner','hq'],
@@ -164,16 +164,16 @@
     { id:'mtg', group:'storeops', icon:'mtg', roles:['manager','owner','hq'],
       name:{ ja:'月例MTG', en:'Monthly Meeting', vi:'Họp hàng tháng' },
       desc:{ ja:'各店の定例MTGと議題を一元管理', en:'All stores meetings & agendas', vi:'Lịch họp & nội dung mọi cửa hàng' } },
-    { id:'hr', group:'storeops', icon:'hr', roles:['manager','owner','hq'],
+    { id:'hr', group:'storeops', icon:'hr', soon:true, roles:['manager','owner','hq'],
       name:{ ja:'スタッフ評価・面談', en:'Staff Review', vi:'Đánh giá nhân viên' },
       desc:{ ja:'キャリアアップ制度と面談', en:'Career ranks & interviews', vi:'Xếp hạng & phỏng vấn' } },
-    { id:'order', group:'storeops', icon:'cart', roles:['manager','owner','hq'],
+    { id:'order', group:'storeops', icon:'cart', soon:true, roles:['manager','owner','hq'],
       name:{ ja:'備品・食材の発注', en:'Order Supplies', vi:'Đặt vật tư' },
       desc:{ ja:'カタログから本部へ発注', en:'Order from the HQ catalog', vi:'Đặt từ danh mục HQ' } },
-    { id:'schedule', group:'biz', icon:'calendar', roles:['owner','hq'],
+    { id:'schedule', group:'biz', icon:'calendar', soon:true, roles:['owner','hq'],
       name:{ ja:'開業スケジュール D-90', en:'Opening Schedule D-90', vi:'Lịch khai trương D-90' },
       desc:{ ja:'契約〜開業のマスター工程', en:'Contract to opening master plan', vi:'Từ hợp đồng đến khai trương' } },
-    { id:'pl', group:'biz', icon:'yen', roles:['owner','hq'],
+    { id:'pl', group:'biz', icon:'yen', soon:true, roles:['owner','hq'],
       name:{ ja:'数値・PL', en:'Numbers & P/L', vi:'Số liệu & P/L' },
       desc:{ ja:'損益・KPIの見える化', en:'Profit and KPI visibility', vi:'Lợi nhuận & KPI' } },
     { id:'dashboard', group:'hq', icon:'gauge', roles:['hq'],
@@ -182,13 +182,13 @@
     { id:'tasks', group:'hq', icon:'task', roles:['hq'],
       name:{ ja:'課題・タスク管理', en:'Task Management', vi:'Quản lý công việc' },
       desc:{ ja:'本部の全課題を担当・状況で管理', en:'All HQ tasks by owner & status', vi:'Công việc theo phụ trách & trạng thái' } },
-    { id:'invoice', group:'hq', icon:'invoice', roles:['hq'],
+    { id:'invoice', group:'hq', icon:'invoice', soon:true, roles:['hq'],
       name:{ ja:'請求・支払管理', en:'Billing & Payment', vi:'Hóa đơn & Thanh toán' },
       desc:{ ja:'取引先ごとの請求方法・締日', en:'Vendor billing method & cutoff', vi:'Cách & kỳ hạn thanh toán' } },
     { id:'teishutsu', group:'hq', icon:'inbox', roles:['hq'],
       name:{ ja:'加盟店・提出物管理', en:'Submissions', vi:'Nộp tài liệu' },
       desc:{ ja:'提出状況と未提出の自動抽出', en:'Track & flag missing submissions', vi:'Theo dõi tài liệu chưa nộp' } },
-    { id:'camera', group:'hq', icon:'video', roles:['hq'],
+    { id:'camera', group:'hq', icon:'video', soon:true, roles:['hq'],
       name:{ ja:'防犯カメラ確認', en:'Security Cameras', vi:'Camera an ninh' },
       desc:{ ja:'本部から全店を一括確認', en:'Check all stores from HQ', vi:'Xem mọi cửa hàng từ HQ' } },
     { id:'svfb', group:'hq', icon:'report', roles:['hq'],
@@ -475,7 +475,7 @@
       </div>`;
     }
     return `<button class="tile" data-open="${a.id}">
-      ${a.live ? '<span class="live">● LIVE</span>' : ''}
+      ${a.soon ? `<span class="live" style="background:#8a8f98">${L({ja:'準備中',en:'Soon',vi:'Sắp có'})}</span>` : (a.live ? '<span class="live">● LIVE</span>' : '')}
       <div class="ico">${svg(a.icon)}</div>
       <div class="nm">${esc(L(a.name))}</div>
       <div class="desc">${esc(L(a.desc))}</div>
@@ -641,7 +641,7 @@
   APP_VIEWS.firstphoto = () => {
     const recent = getFP().filter(r => visibleStores().includes(r.store)).sort((x,y)=>y.t-x.t).slice(0,6);
     return `
-      ${NOTE({ ja:'撮影して提出できます（AI判定は未接続のため、本部が確認します）', en:'Capture and submit. AI judgment is not connected yet (HQ reviews).', vi:'Chụp và gửi. AI chưa kết nối (HQ kiểm tra).' })}
+      ${NOTE({ ja:'◆ 準備中：AI判定の運用を検討中です。正式な運用開始までは、これまでどおりの方法でお願いします（お試しでの提出は可能です）', en:'◆ In preparation: AI judgment is under discussion. Please continue the current method until the official start (you may try submitting here).', vi:'◆ Đang chuẩn bị: cách dùng AI đang được bàn. Vui lòng giữ cách hiện tại cho đến khi chính thức.' })}
       <div class="card" id="fpForm">
         <h3>${L({ ja:'提供直後の一枚を報告', en:'Report the first serving photo', vi:'Gửi ảnh món vừa phục vụ' })}</h3>
         <label class="fld"><span>${L({ ja:'店舗', en:'Store', vi:'Cửa hàng' })}</span><select id="fp_store">${visibleStores().map(s=>`<option>${esc(s)}</option>`).join('')}</select></label>
@@ -788,7 +788,7 @@
       todays.forEach(e => { if (byStore[e.store] != null) byStore[e.store]++; });
       const storeRows = Object.entries(byStore).sort((a,b)=>b[1]-a[1]);
       return `
-        ${NOTE({ ja:'◆ 全店の本日の来店経路を集約表示（本部・閲覧モード。記録は各店舗で行います）', en:'◆ Aggregated arrival routes for all stores (HQ view)', vi:'◆ Tổng hợp nguồn khách toàn hệ thống (chế độ HQ)' })}
+        ${NOTE({ ja:'◆ 全店の本日の来店経路を集約表示（本部・閲覧モード。記録は各店舗で行います）／※サーベイを使っている店舗は、来店経路もサーベイ側で取得します（二重入力は不要です）', en:'◆ Aggregated arrival routes (HQ view). Stores using the survey collect this in the survey instead.', vi:'◆ Tổng hợp nguồn khách (HQ). Cửa hàng dùng khảo sát thì thu thập ở khảo sát.' })}
         <div class="card">
           <h3>${L({ ja:'本日の来店経路（全店）', en:'Arrival routes today (all stores)', vi:'Nguồn khách hôm nay (toàn bộ)' })}</h3>
           <div class="stat-row"><div class="stat"><div class="n">${total}</div><div class="k">${L({ ja:'合計', en:'Total', vi:'Tổng' })}</div></div></div>
@@ -948,33 +948,22 @@
   const SURVEY_URL = 'https://yosakurasurvey.vercel.app/store2.html';
   APP_VIEWS.survey = () => {
     const vis = visibleStores();
-    const store = vis[0];
-    const rows = getSurvey().filter(r=>vis.includes(r.store));
+    const rows = getSurvey().filter(r => vis.includes(r.store));
     const n = rows.length;
-    const avg = n ? (rows.reduce((s,r)=>s+(Number(r.sat)||0),0)/n) : 0;
+    const avg = n ? (rows.reduce((s, r) => s + (Number(r.sat) || 0), 0) / n) : 0;
     return `
-      ${NOTE({ ja:'◆ 実際のiPadサーベイ運用マニュアルに準拠。回答は自店・本部の集計に反映されます。', en:'◆ Based on the real iPad survey manual.', vi:'◆ Theo cẩm nang khảo sát iPad thực tế.' })}
+      ${NOTE({ ja:'◆ サーベイはサーベイ（iPadの本番フォーム）で運用します。このアプリは入口と運用メモの役割です。', en:'◆ Surveys are run in the live iPad form. This app provides the entry point and operating notes.', vi:'◆ Khảo sát chạy trên form iPad thật. Ứng dụng chỉ là lối vào và ghi chú vận hành.' })}
       <div class="card">
+        <h3>${L({ ja:'お客様アンケート（本番）', en:'Guest survey (live)', vi:'Khảo sát khách (thật)' })}</h3>
         <button class="btn-primary" id="surveyOpen" data-url="${SURVEY_URL}">${L({ ja:'本番サーベイを開く（お客様のiPad用）', en:'Open live survey (for guests)', vi:'Mở khảo sát thật (cho khách)' })}</button>
         <div class="hint">${L({ ja:'声かけは短く：「お時間がありましたら、アンケートにご協力をお願いいたします。」／回答は誘導せず、満足度を最優先に。', en:'Keep it short; never lead the answer; prioritize the guest.', vi:'Nói ngắn gọn; không gợi ý câu trả lời.' })}</div>
-      </div>
-      <div class="card" id="surveyForm">
-        <h3>${L({ ja:'アンケート（入力）', en:'Survey', vi:'Khảo sát' })}</h3>
-        <div class="muted" style="margin-bottom:6px">${esc(store)}</div>
-        <label class="fld"><span>${L({ ja:'満足度', en:'Satisfaction', vi:'Mức hài lòng' })}</span>
-          <div class="seg" data-seg="sat">${SAT_FACES.map(f=>`<button type="button" data-v="${f.v}" class="${f.v===5?'on':''}" title="${esc(L(f.t))}" style="font-size:20px">${f.e}</button>`).join('')}</div></label>
-        <label class="fld"><span>${L({ ja:'来店のきっかけ', en:'How did you hear about us?', vi:'Nguồn biết đến' })}</span>
-          <select id="survey_route">${ROUTES.map(r=>`<option value="${r.v}">${esc(L(r.t))}</option>`).join('')}</select></label>
-        <label class="fld"><span>${L({ ja:'改善してほしい点（複数選択可・任意）', en:'Points to improve (multi, optional)', vi:'Điểm cần cải thiện' })}</span>
-          <div class="seg-multi" data-multiseg="issue">${SURVEY_ISSUES.map(o=>`<button type="button" class="chip" data-v="${o.v}">${esc(L(o.t))}</button>`).join('')}</div></label>
-        <label class="fld"><span>${L({ ja:'ご感想（任意）', en:'Comments (optional)', vi:'Nhận xét' })}</span><textarea id="survey_note" placeholder="${L({ ja:'ご意見・ご感想をお聞かせください', en:'Your feedback', vi:'Ý kiến của bạn' })}"></textarea></label>
-        <button class="btn-primary" id="submitSurvey">${L({ ja:'送信する', en:'Submit', vi:'Gửi' })}</button>
         <div class="hint">${L({ ja:'※「大変満足／満足」の時だけ、控えめに口コミQRをご案内（断られたらすぐ引く）。', en:'Only when highly satisfied, gently offer the review QR.', vi:'Chỉ khi rất hài lòng mới mời đánh giá.' })}</div>
       </div>
-      <div class="card">
-        <h3>${L(vis.length>1 ? { ja:'集計（全店）', en:'Summary (all stores)', vi:'Tổng hợp (toàn bộ)' } : { ja:'集計（自店）', en:'Summary (this store)', vi:'Tổng hợp (cửa hàng)' })}</h3>
-        <div class="stat-row"><div class="stat"><div class="n">${n}</div><div class="k">${L({ ja:'回答数', en:'Responses', vi:'Phản hồi' })}</div></div><div class="stat"><div class="n">${n?avg.toFixed(1):'—'}</div><div class="k">${L({ ja:'平均満足度', en:'Avg. satisfaction', vi:'Hài lòng TB' })}</div></div></div>
-      </div>`;
+      ${n ? `<div class="card">
+        <h3>${L({ ja:'これまでにこのアプリから記録した分', en:'Recorded via this app so far', vi:'Đã ghi qua ứng dụng' })}</h3>
+        <div class="stat-row"><div class="stat"><div class="n">${n}</div><div class="k">${L({ ja:'回答数', en:'Responses', vi:'Phản hồi' })}</div></div><div class="stat"><div class="n">${avg.toFixed(1)}</div><div class="k">${L({ ja:'平均満足度', en:'Avg. satisfaction', vi:'Hài lòng TB' })}</div></div></div>
+        <p class="hint" style="display:block">${L({ ja:'※ 集計の正はサーベイ側です。こちらは過去にこのアプリから入力された分のみを表示しています。', en:'The survey tool is the source of truth. This shows only entries made in this app.', vi:'Số liệu chuẩn nằm ở công cụ khảo sát.' })}</p>
+      </div>` : ''}`;
   };
 
   /* ⑥ 総括表（動く：実日報フォーマットで入力→保存→履歴＆本部集約）*/
@@ -1526,7 +1515,9 @@
   // 提出物マスタ（本部が設定）。obligation: required(必須)/store(店舗運用)/off(対象外)
   function defaultMasters() {
     return [
-      { id:'firstphoto', name:{ja:'一食目写真',en:'First-plate photo',vi:'Ảnh món đầu tiên'}, oblig:'required', freq:'daily', due:'23:59', target:'except_course', hqReview:'exception', detect:'fp', linkApp:'firstphoto' },
+      // ★一食目写真：AI判定の運用が未確定（木村さんと協議中）のため、当面は提出物の対象から外す（準備中）。
+      //   運用が決まったら oblig を 'required' に戻すだけで有効化できる。
+      { id:'firstphoto', name:{ja:'一食目写真',en:'First-plate photo',vi:'Ảnh món đầu tiên'}, oblig:'off', freq:'daily', due:'23:59', target:'except_course', hqReview:'exception', detect:'fp', linkApp:'firstphoto' },
       { id:'nippou',     name:{ja:'日報（総括表）',en:'Daily report',vi:'Báo cáo ngày'},       oblig:'required', freq:'daily', due:'23:59', target:'all',          hqReview:'each',      detect:'sk', linkApp:'soukatsu' },
       { id:'openphoto',  name:{ja:'オープン写真',en:'Opening photo',vi:'Ảnh mở cửa'},          oblig:'store',    freq:'daily', due:'11:00', target:'all',          hqReview:'none',      detect:'subrec', linkApp:'openphoto' },
       { id:'cleaning',   name:{ja:'開店清掃チェック',en:'Opening cleaning',vi:'Vệ sinh mở cửa'}, oblig:'store',    freq:'daily', due:'11:00', target:'all',          hqReview:'none',      detect:'none', linkApp:'checklist' },
