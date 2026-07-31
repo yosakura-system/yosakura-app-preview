@@ -12,7 +12,7 @@
      空のままなら従来通りこの端末内(localStorage)だけに保存。 */
   /* 既定（従来からの共有バックエンド）。★本番運用では「本部の専用バックエンド」を設定して切り替える。
      設定は本部メニュー →「バックエンド設定」から。設定するとこの端末以降その接続先を使う。 */
-  const API_URL_DEFAULT = 'https://script.google.com/macros/s/AKfycbzS-tvfTQwJjgYn2ASHWidU-qBWZzF85bqt25T4mAXcM-P6-75zFqzUSlgiPFDTe7KQRQ/exec';
+  const API_URL_DEFAULT = 'https://script.google.com/macros/s/AKfycbxfBr3H4toq5AdeQ5zb-5DcmcYpjaRybGC5EAyfHIVYzVE3-bCBGq2bgIbgpls3Kq7_/exec'; // 世桜専用（yosakura.system）
   const LS_API = 'yosakura_api_url';
   const getApiUrl = () => (localStorage.getItem(LS_API) || API_URL_DEFAULT);
   const isCustomApi = () => !!localStorage.getItem(LS_API);
