@@ -475,7 +475,7 @@
       </div>`;
     }
     return `<button class="tile" data-open="${a.id}">
-      ${a.soon ? `<span class="live" style="background:#8a8f98">${L({ja:'準備中',en:'Soon',vi:'Sắp có'})}</span>` : (a.live ? '<span class="live">● LIVE</span>' : '')}
+      ${a.soon ? `<span class="live" style="background:#8a8f98">${L({ja:'準備中',en:'Soon',vi:'Sắp có'})}</span>` : (a.live ? '<span class="live">● LIVE</span>' : `<span class="live" style="background:#4e7d5a">${L({ja:'運用中',en:'In use',vi:'Đang dùng'})}</span>`)}
       <div class="ico">${svg(a.icon)}</div>
       <div class="nm">${esc(L(a.name))}</div>
       <div class="desc">${esc(L(a.desc))}</div>
