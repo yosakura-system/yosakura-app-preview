@@ -14,7 +14,14 @@
      設定は本部メニュー →「バックエンド設定」から。設定するとこの端末以降その接続先を使う。 */
   const API_URL_DEFAULT = 'https://script.google.com/macros/s/AKfycbxfBr3H4toq5AdeQ5zb-5DcmcYpjaRybGC5EAyfHIVYzVE3-bCBGq2bgIbgpls3Kq7_/exec'; // 世桜専用（yosakura.system）
   const LS_API = 'yosakura_api_url';
-  const getApiUrl = () => (localStorage.getItem(LS_API) || API_URL_DEFAULT);
+  /* ====== 体験版（2026-08-12 勉強会デモMTGの決定） ======
+     勉強会のあと、加盟店の皆さまへお配りして自由に触っていただくための版。
+     API_URL_DEFAULT を空にしてビルドしたものが体験版になる。
+     ★端末に保存された接続先(LS_API)も無視する＝どう操作しても本物の記録には送られない。
+       （ここを localStorage 任せにすると、以前この端末で本番URLを入れていた方の操作が
+         本物の履歴に混ざる。配る版なので、ビルドの時点で断ち切る） */
+  const TAIKEN = !API_URL_DEFAULT;
+  const getApiUrl = () => (TAIKEN ? '' : (localStorage.getItem(LS_API) || API_URL_DEFAULT));
   const isCustomApi = () => !!localStorage.getItem(LS_API);
   /* システム管理者モード：接続先の変更は「本部ロール かつ 管理者モード」のみ可能。
      通常の本部利用者は接続状態の閲覧のみ（誤操作で共用へ戻すのを防ぐ）。
@@ -233,7 +240,15 @@
 
   /* ---------- 状態 ---------- */
   const LS = { role:'yosakura_demo_role', store:'yosakura_demo_store', reports:'yosakura_demo_reports', checks:'yosakura_demo_checks', uname:'yosakura_demo_uname' };
-  const getRole = () => localStorage.getItem(LS.role) || 'staff';
+  /* 体験版で選べる役割は、加盟店の皆さまが実際にお使いになる3つだけ（2026-08-12 渉さんのご判断）。
+     本部の画面は加盟店の方には関係がなく、見えると「本部はここまで見るのか」という話に逸れる。
+     ★端末に本部が保存されていても、体験版では店長として開く（配る版なので入口を残さない）。 */
+  const ROLE_KEYS_ALL = ['staff', 'manager', 'owner', 'hq'];
+  const roleKeys = () => TAIKEN ? ['staff', 'manager', 'owner'] : ROLE_KEYS_ALL;
+  const getRole = () => {
+    const r = localStorage.getItem(LS.role) || 'staff';
+    return roleKeys().includes(r) ? r : (TAIKEN ? 'manager' : 'staff');
+  };
   const setRole = (r) => localStorage.setItem(LS.role, r);
   // 提出者名＝この端末を使う方のお名前。一度登録すれば以後の提出に自動で残る（本部決定：提出物は後から誰が出したか分かるようにする）
   const getUserName = () => (localStorage.getItem(LS.uname) || '').trim();
@@ -321,7 +336,7 @@
      2つが違えば「新しい版があります」と出して、その場で最新にできるようにする。
      ※ 以前は最新版の番号だけを表示していたため、端末が古い版のまま動いていても
        画面には最新の番号が出てしまい、更新が届いていないことに気づけなかった。 */
-  const APP_BUILD = 'yosakura-hq-v69';
+  const APP_BUILD = 'yosakura-hq-v70';
   let LATEST_BUILD = '';
   const BUILD_TAG = APP_BUILD;
   const $app = document.getElementById('app');
@@ -561,6 +576,10 @@
           <span class="dot"></span><span class="rc-role">${L(role.label)}</span><span class="sep">・</span><span class="rc-store">${esc(storeShort(getStoreSel()))}</span>
         </button>
       </header>
+      ${TAIKEN ? `<div class="taiken-band">${L({
+        ja:'体験版｜どこを押しても大丈夫です。入力はこの端末の中だけに残り、お店の記録には送られません。',
+        en:'Trial version — tap anything. Entries stay on this device and are never sent to store records.',
+        vi:'Bản dùng thử — cứ chạm thoải mái. Dữ liệu chỉ lưu trên máy này, không gửi tới hồ sơ cửa hàng.' })}</div>` : ''}
       ${inner}
       <nav class="tabbar">
         ${tabs.map(([k, lbl, ic]) => `<button data-tab="${k}" class="${activeTab===k?'on':''}">${svg(ic)}${L(lbl)}</button>`).join('')}
@@ -1198,8 +1217,6 @@
        d:{ja:'元気よく挨拶／共有事項／ポジション／予約確認（朝礼シートに沿って。ここで身だしなみの最終チェック）'}},
       {ja:'外観最終チェック',en:'Final exterior check',vi:'Kiểm tra ngoài',
        d:{ja:'電気がついているか／あるべき場所に設置されているか／暖簾がかかっているか'}},
-      {ja:'GLINEへ共有',en:'Share to GLINE',vi:'Chia sẻ GLINE',
-       d:{ja:'オープンチェックリスト（キッチン・ホール）／内観外観写真'}},
       {ja:'オープン',en:'Open',vi:'Mở cửa',
        d:{ja:'「いらっしゃいませ！」と元気にお出迎え。一度きりかもしれない日本旅行で世桜を選んでくださったお客様へ、最高の和食体験を'}} ] },
     { g:{ja:'キッチン',en:'Kitchen',vi:'Bếp'}, items:[
@@ -1253,8 +1270,10 @@
        d:{ja:'袋をしっかり閉じて店舗前へ／段ボールは畳んで出す'}},
       {ja:'レジ締め',en:'Register close',vi:'Chốt quầy',
        d:{ja:'売上レシートとレジの金額を必ず合わせてから総括表へ入力／日計レポート（取引別・分類別）を印刷／現金売上と日計レポートを封筒へ／TIPは別の封筒／写真を撮り金庫に保管'}},
-      {ja:'GLINEへ共有',en:'Share to GLINE',vi:'Chia sẻ GLINE',
-       d:{ja:'桜チェック表／定期衛生管理表／お手すきチェックリスト／レジクローズ画面／現金売上・日計レポート・TIP封筒／日報／気づき／クローズチェックリスト（ホール・キッチン）'}},
+      // 2026-08-12 渉さんのご指摘：チェックリスト・日報・気づき・写真はアプリで提出すると本部へ届くため、
+      // GLINEへ送り直す作業は不要になった。店舗内で確認が要るレジ関係だけを残す。
+      {ja:'レジ締めの確認を店舗内で共有',en:'Share register close in store',vi:'Chia sẻ chốt quầy trong quán',
+       d:{ja:'レジクローズ画面／現金売上・日計レポート・TIP封筒の写真（店舗内での確認用。本部への提出はアプリから）'}},
       {ja:'整理整頓・補充',en:'Tidy & restock',vi:'Sắp xếp & bổ sung',
        d:{ja:'レジ周りの整理整頓／販促物の補充（次の人が始めやすい環境をつくる）'}},
       {ja:'各種充電',en:'Charging',vi:'Sạc thiết bị',
@@ -1294,8 +1313,9 @@
        d:{ja:'厨房のゴミ箱／トイレのゴミ箱／段ボール（畳む・鰻の箱はパッケージが見えないように）／空き瓶（厨房内に残っていないか）'}},
       {ja:'在庫確認・整理整頓',en:'Stock & tidy',vi:'Tồn kho & sắp xếp',
        d:{ja:'消耗品はカレンダーを確認／食材は仕込み・発注・買い出しを確認／当日残数は冷蔵庫の表に記入／ついでに定位置へ戻す'}},
-      {ja:'GLINEへ共有',en:'Share to GLINE',vi:'Chia sẻ GLINE',
-       d:{ja:'仕込み表（急ぎは「★」をつける）／発注／気づき／クローズチェックリスト'}},
+      // アプリで提出するもの（気づき・クローズチェックリスト）は再共有が要らなくなった
+      {ja:'翌日への引き継ぎ',en:'Handover for tomorrow',vi:'Bàn giao cho hôm sau',
+       d:{ja:'仕込み表（急ぎは「★」をつける）／発注の申し送り'}},
       {ja:'電源OFF',en:'Power off',vi:'Tắt nguồn',
        d:{ja:'各種電気／エアコン／換気扇／ガス元栓／食洗機（桜やバックヤードも確認）'}},
       {ja:'退勤・戸締り',en:'Clock out & lock up',vi:'Chấm công & khóa cửa',
@@ -1324,8 +1344,8 @@
        d:{ja:'洗い物を終わらせ、洗い終わったものを定位置へ'}},
       {ja:'充電',en:'Charging',vi:'Sạc',
        d:{ja:'iPad／スピーカー／決済端末／インカム／看板は夜用のバッテリーを充電'}},
-      {ja:'GLINEへ共有',en:'Share to GLINE',vi:'Chia sẻ GLINE',
-       d:{ja:'中間報告／引き継ぎ／仕込み'}} ] },
+      {ja:'夜の担当への引き継ぎ',en:'Handover to evening shift',vi:'Bàn giao ca tối',
+       d:{ja:'中間報告／引き継ぎ事項／仕込みの状況'}} ] },
     { g:{ja:'昼の締め（キッチン）',en:'Lunch close (kitchen)',vi:'Đóng trưa (bếp)'}, items:[
       {ja:'洗い物',en:'Dishes',vi:'Rửa bát',
        d:{ja:'すべての洗い物を終わらせる／しゃもじやトングも一度すべて洗う'}},
@@ -1455,8 +1475,12 @@
     const n = Number(v);
     return (day === todayKey() && Number.isInteger(n) && n >= 0 && n <= 6) ? n : new Date().getDay();
   };
-  const ckGroupsOf = (mode) => mode === 'hygiene'
-    ? ((HYGIENE_DAYS.find(x => x.d === getHygDay()) || {}).g || [])
+  /* 定期衛生は曜日で中身が変わる。
+     ★曜日を省いたときは「今日の曜日」を使う（2026-08-12）。
+       画面では別の曜日を選んで見られるようにしているが、提出できているかの判定まで
+       その選択に引きずられると、今日やるべき箇所が終わっていないのに終わったことになる。 */
+  const ckGroupsOf = (mode, hygDay) => mode === 'hygiene'
+    ? ((HYGIENE_DAYS.find(x => x.d === (hygDay == null ? new Date().getDay() : hygDay)) || {}).g || [])
     : (CK_COMMON[mode] || []);
   const WDAY_LABELS = [{ja:'日',en:'Sun',vi:'CN'},{ja:'月',en:'Mon',vi:'T2'},{ja:'火',en:'Tue',vi:'T3'},{ja:'水',en:'Wed',vi:'T4'},{ja:'木',en:'Thu',vi:'T5'},{ja:'金',en:'Fri',vi:'T6'},{ja:'土',en:'Sat',vi:'T7'}];
   const CK_MODES = [
@@ -1484,14 +1508,30 @@
   const ckCanEdit = () => ['manager','owner','hq'].includes(getRole());
   // 誰がいつ実施したか（全端末共有）。チェックの中身とは別に持つ（IDと混ざらないように）
   const getCkMeta = () => { try { return JSON.parse(localStorage.getItem('yosakura_demo_ckmeta')) || {}; } catch { return {}; } };
-  // その店舗×モードの項目数（本部共通＋店舗独自）
-  const ckTotalOf = (store, mode) => {
-    let n = 0; ckGroupsOf(mode).forEach(gr => n += gr.items.length);
-    return n + ckCustom(store, mode).length;
+  /* その店舗×モードで「いま画面に出ている項目」のIDを、画面と同じ手順で作る。
+     ★数えるものを1か所に集約する理由（2026-08-12）：
+       以前は「保存されているチェックの数」を数えていたため、
+       あとから消した店舗独自の項目や、別の曜日の定期衛生のチェックまで数に入り、
+       実際には終わっていないのに終わったように見えることがあった。 */
+  const ckIdsOf = (store, mode, hygDay) => {
+    const d = hygDay == null ? new Date().getDay() : hygDay; // 省いたら今日の曜日
+    const idBase = mode === 'hygiene' ? `${mode}-${d}` : mode;
+    const ids = [];
+    ckGroupsOf(mode, d).forEach((gr, gi) => gr.items.forEach((_, ii) => ids.push(`${idBase}-c-${gi}-${ii}`)));
+    return ids.concat(ckCustom(store, mode).map(c => c.id));
   };
+  // その店舗×モードの項目数（本部共通＋店舗独自）
+  const ckTotalOf = (store, mode) => ckIdsOf(store, mode).length;
   const ckDoneCountOf = (store, mode) => {
     const done = getCkDone()[ckDoneKey(store, mode)] || {};
-    return Object.keys(done).filter(k => done[k]).length;
+    return ckIdsOf(store, mode).filter(id => done[id]).length;
+  };
+  // 全部終わっているか（提出済みの判定はこれを使う）
+  const ckAllDoneOf = (store, mode, dayKey) => {
+    const ids = ckIdsOf(store, mode);
+    if (!ids.length) return false;
+    const done = getCkDone()[`${store}||${mode}||${dayKey || todayKey()}`] || {};
+    return ids.every(id => !!done[id]);
   };
 
   /* オーナー・本部が複数店舗を見るとき＝各店の本日の実施状況を一覧する
@@ -1523,15 +1563,15 @@
     if (vis.length > 1) return ckOverview(vis); // オーナー（所有店舗すべて）・本部（全店）
     const store = visibleStores()[0];
     const mode = getCkMode();
-    const groups = ckGroupsOf(mode);
+    const hygDay = getHygDay(); // 画面は「選んだ曜日」を出す（判定は今日の曜日を使う＝ckIdsOfの既定）
+    const groups = ckGroupsOf(mode, hygDay);
     const custom = ckCustom(store, mode);
     const done = getCkDone()[ckDoneKey(store, mode)] || {};
     const editable = ckCanEdit();
     // 定期衛生は曜日ごとに内容が違うため、チェックのIDにも曜日を入れる（別の曜日と混ざらないように）
-    const idBase = mode === 'hygiene' ? `${mode}-${getHygDay()}` : mode;
-    const commonIds = [];
-    groups.forEach((gr, gi) => gr.items.forEach((_, ii) => commonIds.push(`${idBase}-c-${gi}-${ii}`)));
-    const allIds = commonIds.concat(custom.map(c => c.id));
+    const idBase = mode === 'hygiene' ? `${mode}-${hygDay}` : mode;
+    // 数えるものは ckIdsOf に集約（「今日出すもの」の判定と必ず同じ数え方になるように）
+    const allIds = ckIdsOf(store, mode, hygDay);
     const total = allIds.length || 1;
     const n = allIds.filter(id => done[id]).length;
     const groupsHTML = groups.map((gr, gi) => `
@@ -1632,10 +1672,16 @@
   function seedSurvey() {
     if (localStorage.getItem('yosakura_demo_survey')) return;
     const now = Date.now(), st = '寿司世桜 心斎橋店';
+    // 高評価だけだと「いただいたご指摘」「お客様の声」が1件も出ず、画面の説明ができない。
+    // 実際のご回答と同じく、改善点は【…】で本文の先頭に入る形にしてある。
     saveSurvey([
       { store:st, sat:5, route:'tiktok', note:'', country:'Korea', t:now-3600e3*5 },
       { store:st, sat:4, route:'google', note:'Great dashi!', country:'USA', t:now-3600e3*9 },
-      { store:st, sat:5, route:'instagram', note:'', country:'Japan', t:now-3600e3*28 }
+      { store:st, sat:5, route:'instagram', note:'', country:'Japan', t:now-3600e3*28 },
+      { store:st, sat:2, route:'google', note:'【提供時間が長かった】料理は美味しかったのですが、最初の一品まで待ちました。', country:'Japan', t:now-3600e3*32 },
+      { store:st, sat:3, route:'walkin', note:'【盛り付け、接客】写真と少し違って見えました。声かけがもう少しあると嬉しいです。', country:'Taiwan', t:now-3600e3*46 },
+      { store:st, sat:2, route:'google', note:'【提供時間が長かった】混んでいたので仕方ないとは思います。', country:'USA', t:now-3600e3*52 },
+      { store:st, sat:4, route:'instagram', note:'【特に問題はありません】器がきれいでした。', country:'Korea', t:now-3600e3*70 }
     ]);
   }
   // iPadサーベイ運用マニュアル準拠：顔文字の満足度／改善点（複数選択）／高満足時のみ口コミ案内
@@ -2793,14 +2839,16 @@
         <h3>${first ? L({ ja:'はじめの設定', en:'First-time setup', vi:'Cài đặt ban đầu' }) : L({ ja:'表示を切り替える', en:'Switch view', vi:'Đổi hiển thị' })}${first ? `<span class="demo-tag">${L({ja:'1回だけ',en:'Once only',vi:'Chỉ một lần'})}</span>` : `<span class="demo-tag">${L({ja:'確認用',en:'For review',vi:'Để xem'})}</span>`}</h3>
         <div class="sub">${first
           ? L({ ja:'この端末をどなたが使うかを選んでください。あとから右上でいつでも変えられます。', en:'Tell us who uses this device. You can change it any time from the top right.', vi:'Chọn ai dùng thiết bị này. Có thể đổi bất cứ lúc nào ở góc trên bên phải.' })
-          : L({ ja:'本部は全店を閲覧できます。店舗iPad・店長・加盟店オーナーは自分の店舗のみ（数値なども自店だけ）。', en:'HQ sees all stores. Store iPad, managers and franchisees see only their own store, including numbers.', vi:'HQ xem mọi cửa hàng. iPad cửa hàng/quản lý/chủ chỉ xem cửa hàng của mình.' })}</div>
+          : TAIKEN
+            ? L({ ja:'店舗iPad・店長・加盟店オーナーで、見えるものが変わります。切り替えてお試しください。', en:'What you see changes by role. Feel free to switch and try.', vi:'Nội dung thay đổi theo vai trò. Hãy thử chuyển đổi.' })
+            : L({ ja:'本部は全店を閲覧できます。店舗iPad・店長・加盟店オーナーは自分の店舗のみ（数値なども自店だけ）。', en:'HQ sees all stores. Store iPad, managers and franchisees see only their own store, including numbers.', vi:'HQ xem mọi cửa hàng. iPad cửa hàng/quản lý/chủ chỉ xem cửa hàng của mình.' })}</div>
         <div class="idlabel">${L({ ja:'役割', en:'Role', vi:'Vai trò' })}</div>
-        ${Object.entries(ROLES).map(([k,v])=>`
+        ${roleKeys().map(k => { const v = ROLES[k]; return `
           <button class="role-opt ${k===role?'on':''}" data-role="${k}">
             <span class="rr">${v.mark}</span>
             <span class="ri"><b>${L(v.label)}</b><span>${L(v.desc)}</span></span>
             ${k===role?`<span class="rc">${svg('tick')}</span>`:''}
-          </button>`).join('')}
+          </button>`; }).join('')}
         <div class="idlabel">${L({ ja:'お名前（提出の記録に残ります）', en:'Your name (recorded on submissions)', vi:'Tên của bạn (ghi vào mục đã nộp)' })}</div>
         <label class="fld"><input type="text" id="idName" maxlength="20" value="${esc(getUserName())}" placeholder="${L({ ja:'例：山田', en:'e.g. Yamada', vi:'VD: Yamada' })}"></label>
         <p class="hint" style="display:block;margin:-2px 0 12px">${L({ ja:'一度ご登録いただくと、以後の提出に自動で記録されます。未登録でも提出はできます（1食目写真は店舗名だけで大丈夫です）。', en:'Register once and it is recorded automatically on later submissions. You can still submit without it.', vi:'Đăng ký một lần, các lần nộp sau sẽ tự ghi. Không có tên vẫn nộp được.' })}</p>
@@ -2926,16 +2974,30 @@
       { id:'ck_close',   name:{ja:'クローズチェックリスト',en:'Closing checklist',vi:'Checklist đóng cửa'}, oblig:'store', freq:'daily', due:'23:59', target:'all', hqReview:'none',      detect:'ckdone', ckMode:'close',  linkApp:'checklist' },
       { id:'nippou',     name:{ja:'日報（総括表）',en:'Daily report',vi:'Báo cáo ngày'},                oblig:'required', freq:'daily', due:'12:00', dueNextDay:true, target:'all', hqReview:'each', detect:'sk', linkApp:'soukatsu' }, // 閉店後〜翌日午前中まで（店舗ごとに開店時間が違うため一律「翌日午前中」）
       // ── 毎週 ──
-      { id:'pop_week',   name:{ja:'卓上POPの交換',en:'Table POP replacement',vi:'Thay POP bàn'},        oblig:'required', freq:'weekly', due:'23:59', target:'gyotai_in', gyotai:['gyukatsu'], hqReview:'none', detect:'none', how:{ja:'新しいものと交換する（店内での実施項目）',en:'Replace with new ones (in-store task)',vi:'Thay mới (việc tại quán)'} }, // 牛カツは油汚れ対策で週1
+      { id:'pop_week',   name:{ja:'卓上POPの交換',en:'Table POP replacement',vi:'Thay POP bàn'},        oblig:'required', freq:'weekly', due:'23:59', target:'gyotai_in', gyotai:['gyukatsu'], hqReview:'none', detect:'didit', how:{ja:'新しいものと交換したら「実施しました」を押してください',en:'Replace with new ones, then tap “Done”',vi:'Thay mới rồi bấm “Đã làm”'} }, // 牛カツは油汚れ対策で週1
       // ── 毎月 ──
-      { id:'monthlynum', name:{ja:'総括表（毎月5日まで）',en:'Monthly summary (by the 5th)',vi:'Tổng kết tháng (đến ngày 5)'}, oblig:'required', freq:'monthly', due:'23:59', target:'all', hqReview:'each', detect:'monthly', linkApp:'pl' },
-      { id:'pl',         name:{ja:'PL（前月分を月末まで）',en:'P&L (previous month, by month end)',vi:'Lãi lỗ (tháng trước)'}, oblig:'required', freq:'monthly', due:'23:59', target:'all', hqReview:'each', detect:'none', linkApp:'pl' },
-      { id:'hygiene_m',  name:{ja:'定期衛生管理（月次の指定箇所）',en:'Monthly hygiene (assigned spots)',vi:'Vệ sinh tháng (khu chỉ định)'}, oblig:'required', freq:'monthly', due:'23:59', target:'all', hqReview:'each', detect:'none', how:{ja:'写真共有の箇所は毎月本部より指定。ビフォーアフターを撮影して店舗×本部GLINEへ',en:'HQ assigns the spots each month; send before/after photos to the store-HQ LINE group',vi:'HQ chỉ định khu vực hàng tháng; gửi ảnh trước/sau'} },
-      { id:'menubook',   name:{ja:'メニューブック・販促物の確認',en:'Menu book & POP check',vi:'Kiểm tra menu & POP'}, oblig:'required', freq:'monthly', due:'23:59', target:'all', hqReview:'each', detect:'none', how:{ja:'汚れや破れがないか確認し、並べて写真を撮って店舗×本部GLINEへ',en:'Check for stains/tears, lay them out, photograph and send to the store-HQ LINE group',vi:'Kiểm tra bẩn/rách, chụp ảnh gửi nhóm LINE'} },
+      /* ★総括表とPLは別のもの（2026-08-12 渉さんのご指摘で整理）。
+           総括表＝日々の数値管理。毎月5日までに締める（売上・仕入・在庫→原価率）。アプリの「数値・原価率」で受ける。
+           PL   ＝店舗の利益管理。前月分を月末まで。人件費・家賃・水光熱などを含むため、アプリはまだ受けていない。
+         以前は両方とも同じ「数値・原価率」の画面へ飛んでおり、同じものが2つ並んでいるように見えていた。
+         PLからはリンクを外し、何をするものかを画面に出す。**項目の統廃合は本部の一覧が正なので、こちらでは行わない。** */
+      { id:'monthlynum', name:{ja:'総括表の締め（毎月5日まで）',en:'Monthly summary close (by the 5th)',vi:'Chốt tổng kết tháng (đến ngày 5)'}, oblig:'required', freq:'monthly', due:'23:59', target:'all', hqReview:'each', detect:'monthly', linkApp:'pl',
+        how:{ja:'前月の売上・仕入・在庫を入力すると原価率まで出ます',en:'Enter last month’s sales, purchases and stock to get the cost ratio',vi:'Nhập doanh thu, nhập hàng, tồn kho tháng trước để ra giá vốn'} },
+      { id:'pl',         name:{ja:'PL・損益（前月分を月末まで）',en:'P&L (previous month, by month end)',vi:'Lãi lỗ (tháng trước)'}, oblig:'required', freq:'monthly', due:'23:59', target:'all', hqReview:'each', detect:'none',
+        how:{ja:'人件費・家賃なども含む損益の集計です。現在はアプリでは受けておらず、本部のPLシートへご入力ください',en:'P&L including labour and rent. Not yet handled in the app — please use the HQ P&L sheet',vi:'Lãi lỗ gồm nhân sự, thuê mặt bằng. Chưa có trong ứng dụng — vui lòng dùng bảng P&L của HQ'} },
+      /* ★2026-08-12：この2件はアプリで受けていなかった（グループLINEへ送る運用のまま残っていた）。
+         写真を出すという中身はオープン写真とまったく同じなので、同じ画面で受けるようにした。
+         これで「送り先を選ばずに、アプリに出せば届く」が月次の提出物でも成り立つ。 */
+      { id:'hygiene_m',  name:{ja:'定期衛生管理（月次の指定箇所）',en:'Monthly hygiene (assigned spots)',vi:'Vệ sinh tháng (khu chỉ định)'}, oblig:'required', freq:'monthly', due:'23:59', target:'all', hqReview:'each', detect:'subrec', linkApp:'openphoto', how:{ja:'清掃する箇所は毎月本部より指定。清掃前と清掃後を撮って提出してください',en:'HQ assigns the spots each month; submit before/after photos',vi:'HQ chỉ định khu vực hàng tháng; nộp ảnh trước/sau'} },
+      { id:'menubook',   name:{ja:'メニューブック・販促物の確認',en:'Menu book & POP check',vi:'Kiểm tra menu & POP'}, oblig:'required', freq:'monthly', due:'23:59', target:'all', hqReview:'each', detect:'subrec', linkApp:'openphoto', how:{ja:'汚れや破れがないか確認し、並べて写真を撮って提出してください',en:'Check for stains/tears, lay them out and submit a photo',vi:'Kiểm tra bẩn/rách, bày ra và nộp ảnh'} },
       { id:'facade',     name:{ja:'店舗内・外の動画',en:'Store interior/exterior video',vi:'Video trong/ngoài quán'}, oblig:'required', freq:'monthly', due:'23:59', target:'all', hqReview:'each', detect:'video', linkApp:'storevideo' },
-      { id:'pop_month',  name:{ja:'卓上POPの交換',en:'Table POP replacement',vi:'Thay POP bàn'},        oblig:'required', freq:'monthly', due:'23:59', target:'gyotai_ex', gyotai:['gyukatsu'], hqReview:'none', detect:'none', how:{ja:'新しいものと交換する（店内での実施項目）',en:'Replace with new ones (in-store task)',vi:'Thay mới (việc tại quán)'} },
+      { id:'pop_month',  name:{ja:'卓上POPの交換',en:'Table POP replacement',vi:'Thay POP bàn'},        oblig:'required', freq:'monthly', due:'23:59', target:'gyotai_ex', gyotai:['gyukatsu'], hqReview:'none', detect:'didit', how:{ja:'新しいものと交換したら「実施しました」を押してください',en:'Replace with new ones, then tap “Done”',vi:'Thay mới rồi bấm “Đã làm”'} },
       // ── 四半期 ──
-      { id:'compliance', name:{ja:'コンプラチェック（4・7・10・1月）',en:'Compliance check (Apr/Jul/Oct/Jan)',vi:'Kiểm tra tuân thủ'}, oblig:'required', freq:'quarterly', due:'23:59', target:'all', hqReview:'each', detect:'none', how:{ja:'対象月に本部がシートを用意し、LINEで実施をご連絡します',en:'HQ prepares the sheet and announces it on LINE in the target month',vi:'HQ chuẩn bị bảng và thông báo qua LINE'} }
+      /* ★コンプラチェックは「案②」で運用する（2026-08-12 渉さんのご判断）。
+         四半期に1回のためにアプリ内へ回答画面を作るより、本部が用意されたシートへの入口を置くだけにする。
+         url は本部が「加盟店・提出物管理」から設定する（対象月ごとに差し替えられる）。
+         ★何をチェックするのかは本部が配るもの。神田が中身を作らない。 */
+      { id:'compliance', name:{ja:'コンプラチェック（4・7・10・1月）',en:'Compliance check (Apr/Jul/Oct/Jan)',vi:'Kiểm tra tuân thủ'}, oblig:'required', freq:'quarterly', due:'23:59', target:'all', hqReview:'each', detect:'none', url:'', how:{ja:'本部が用意したシートに記入してください（下のボタンから開けます）',en:'Fill in the sheet prepared by HQ (open it from the button below)',vi:'Điền vào bảng do HQ chuẩn bị (mở từ nút bên dưới)'} }
     ];
   }
   /* 提出管理データの全端末共有：既存バックエンド(reports)に専用kindで保存し本部全員で共有（追加kindのみ・既存挙動は不変） */
@@ -3026,15 +3088,14 @@
       if (m.detect === 'fp')     return getFP().some(r => r.store === store && inScope(r.t));
       if (m.detect === 'sk')     return getSk().some(r => r.store === store && (r.date ? inScopeD(r.date) : inScope(r.t))); // 対象日で判定（翌朝提出でも前日分として数える）
       if (m.detect === 'checks') { const c = jget(LS.checks, []); return Array.isArray(c) && c.some(r => r.store === store && inScope(r.t)); }
-      // アプリのチェックリスト＝そのモードを1つでもチェックしていれば実施とみなす（全端末で共有済み）
-      if (m.detect === 'ckdone') {
-        const mode = m.ckMode || 'open';
-        const done = getCkDone()[`${store}||${mode}||${dk}`] || {};
-        return Object.keys(done).some(k => done[k]);
-      }
+      /* アプリのチェックリスト＝★その日の項目が「全部」終わったときだけ提出済みとする。
+         2026-08-12 渉さんのご指摘で修正。以前は1つでもチェックすれば実施とみなしていたため、
+         途中までしか終わっていないのに「今日出すもの」から消えてしまっていた。
+         点検は最後まで通してこそ意味があるので、途中は未提出のまま残す。 */
+      if (m.detect === 'ckdone') return ckAllDoneOf(store, m.ckMode || 'open', dk);
       if (m.detect === 'video')  return getReports().some(r => r.kind === 'video' && r.store === store && inScope(r.t));
       if (m.detect === 'monthly') return getMonthly().some(r => r.store === store && r.ym === new Date().toISOString().slice(0, 7));
-      if (m.detect === 'subrec') return subRows(SUB_KINDS.open).some(r => r.store === store && String(r.item || '').split('|')[0] === m.id && inScope(r.t));
+      if (m.detect === 'subrec' || m.detect === 'didit') return subRows(SUB_KINDS.open).some(r => r.store === store && String(r.item || '').split('|')[0] === m.id && inScope(r.t));
     } catch (e) {}
     return false;
   }
@@ -3068,7 +3129,22 @@
       : it.m.freq === 'weekly' ? L({ja:'今週',en:'This week',vi:'Tuần này'})
       : it.prev ? `${L({ja:'前日分',en:'Yesterday',vi:'Hôm qua'})}（${esc(String(it.dk).slice(5))}）・${L({ja:'締切',en:'Due',vi:'Hạn'})} ${L({ja:'本日',en:'today',vi:'hôm nay'})} ${it.m.due}`
       : `${L({ja:'締切',en:'Due',vi:'Hạn'})} ${it.m.due}`;
-    const openBtn = ((it.manual || !it.submitted) && it.m.linkApp) ? `<button class="mini" data-tsub="${it.m.linkApp}">${L({ja:'開いて提出',en:'Open',vi:'Mở'})}${svg('chev')}</button>` : '';
+    /* ★チェックリストは5種類（オープン／アイドル／クローズ／桜／定期衛生）が同じ画面を使う。
+       ここで「どれを開くか」を渡さないと、前回見ていた種類が開いてしまう。
+       （2026-08-12 渉さんのご指摘。オープンを押したのにアイドルが開く状態だった） */
+    const openArg = it.m.ckMode ? ` data-tsubmode="${it.m.ckMode}"`
+      : (it.m.linkApp === 'openphoto' ? ` data-tsubphoto="${esc(it.m.id)}"` : '');
+    /* 「実施するだけ」の項目（卓上POPの交換など）は、開く画面が無い。
+       写真も要らないので、その場で押せる「実施しました」を出す。
+       押した記録は写真の提出と同じ置き場に残るので、本部からも実施状況が見える。 */
+    const didBtn = (it.m.detect === 'didit' && !it.submitted)
+      ? `<button class="mini" data-tdid="${esc(it.m.id)}">${L({ja:'実施しました',en:'Done',vi:'Đã làm'})}</button>` : '';
+    /* 本部が用意したシートへの入口（コンプラチェックなど）。
+       アプリの中に回答画面を作らず、本部のシートをそのまま開く（2026-08-12 案②）。 */
+    const sheetBtn = isHttp(it.m.url)
+      ? `<button class="mini" data-openurl="${esc(it.m.url)}">${L({ja:'シートを開く',en:'Open sheet',vi:'Mở bảng'})}${svg('chev')}</button>` : '';
+    const openBtn = didBtn || sheetBtn || (((it.manual || !it.submitted) && it.m.linkApp)
+      ? `<button class="mini" data-tsub="${it.m.linkApp}"${openArg}>${L({ja:'開いて提出',en:'Open',vi:'Mở'})}${svg('chev')}</button>` : '');
     const oflag = it.overdue ? ` <span style="color:#b23">${L({ja:'締切超過',en:'Overdue',vi:'Quá hạn'})}</span>` : '';
     const noentry = it.manual ? ` <span class="hint" style="display:inline">※${L({ja:'自動判定なし（店舗運用・手動）',en:'no auto-check (store-run/manual)',vi:'không tự KT (thủ công)'})}</span>` : '';
     // アプリで出せないもの＝どこへどう出すかを書いておく（現場が迷わないように）
@@ -3170,6 +3246,17 @@
         ${masters.map(m => `<div class="rep"><span class="kind b">${L(OBLIG_LABEL[m.oblig])}</span><div class="body"><div class="l1">${esc(L(m.name))}</div><div class="l2">${L({daily:{ja:'毎日',en:'Daily',vi:'Hàng ngày'},weekly:{ja:'週1',en:'Weekly',vi:'Hàng tuần'},monthly:{ja:'月1',en:'Monthly',vi:'Hàng tháng'},quarterly:{ja:'四半期',en:'Quarterly',vi:'Hàng quý'}}[m.freq]||{ja:'毎日',en:'Daily',vi:'Hàng ngày'})} ・ ${L({ja:'締切',en:'Due',vi:'Hạn'})} ${m.due} ・ ${m.hqReview==='each'?L({ja:'本部確認あり',en:'HQ review',vi:'HQ duyệt'}):m.hqReview==='exception'?L({ja:'例外のみ本部',en:'Exceptions to HQ',vi:'Ngoại lệ HQ'}):L({ja:'本部確認なし',en:'No HQ review',vi:'Không HQ'})}</div></div></div>`).join('')}
         <p class="hint" style="display:block">${L({ja:'※ この設定はこの端末に保存されています。全店で共有するにはバックエンド接続（次段階）が必要です。',en:'Saved on this device. Cross-store sharing needs backend (next step).',vi:'Lưu trên máy này. Cần backend để chia sẻ (bước sau).'})}</p>
       </div>
+      ${/* 本部が用意されたシートへの入口を設定する（コンプラチェックなど）。
+            対象月ごとにシートが変わるため、本部の方がここで差し替えられるようにしている。 */''}
+      ${masters.filter(m => 'url' in m).map(m => `
+      <div class="card">
+        <h3>${L({ja:'シートの場所',en:'Sheet link',vi:'Liên kết bảng'})} — ${esc(L(m.name))}</h3>
+        <p class="hint" style="display:block">${L({ja:'ここに入れたシートが、店舗の「シートを開く」から開きます。対象月ごとに差し替えられます。',en:'Stores open this sheet from “Open sheet”. Replace it each period.',vi:'Cửa hàng mở bảng này từ “Mở bảng”. Có thể thay mỗi kỳ.'})}</p>
+        <label class="fld"><span>${L({ja:'シートのURL',en:'Sheet URL',vi:'URL bảng'})}</span>
+          <input type="url" id="msturl_${esc(m.id)}" value="${esc(m.url || '')}" placeholder="https://docs.google.com/..."></label>
+        <button class="btn" data-msturl="${esc(m.id)}">${L({ja:'保存する',en:'Save',vi:'Lưu'})}</button>
+        ${isHttp(m.url) ? `<button class="mini" data-openurl="${esc(m.url)}" style="margin-left:8px">${L({ja:'開いて確認',en:'Open',vi:'Mở'})}</button>` : ''}
+      </div>`).join('')}
       <p class="hint" style="display:block">${L({ja:'※ 提出状況は実際の提出データ（同期済み）から自動集約しています。LINE通知・AI判定は未接続（手動運用中）。',en:'Auto-aggregated from real synced data. LINE & AI not connected (manual).',vi:'Tự tổng hợp từ dữ liệu thật (đã đồng bộ). LINE & AI chưa kết nối (thủ công).'})}</p>`;
   };
 
@@ -3202,25 +3289,52 @@
   }
 
   /* ---------- 店舗向け：オープン写真の提出（実データ・全端末共有） ---------- */
+  /* 写真で出す提出物は、すべてこの1画面で受ける（2026-08-12 渉さんのご指摘で拡張）。
+     以前はオープン写真だけをアプリで受け、月次の衛生写真とメニューブックの確認は
+     グループLINEへ送っていただく設計だった。仕組みは同じなのに受けていなかっただけなので、
+     同じ画面で受けるようにした（送り先を選ばずに済む＝アプリでまとまる、が本当になる）。
+     どれを出すかは「今日出すもの」から渡す（チェックリストと同じ考え方）。 */
+  const photoSubIds = () => getMasters().filter(m => m.detect === 'subrec' && m.linkApp === 'openphoto').map(m => m.id);
+  const getPhotoTarget = () => {
+    const v = localStorage.getItem('yosakura_photo_target');
+    return photoSubIds().includes(v) ? v : 'openphoto';
+  };
+  // 何をどう撮るか（画面に出す案内）。項目が増えたらここに足す
+  const PHOTO_HINTS = {
+    openphoto: { ja:'開店時の店内・外観を1枚。', en:'One photo of the store at opening.', vi:'Một ảnh cửa hàng khi mở cửa.' },
+    hygiene_m: { ja:'本部から今月指定された箇所の、清掃前と清掃後を撮ってください。', en:'Before and after photos of the spot assigned by HQ this month.', vi:'Ảnh trước và sau khi vệ sinh khu vực HQ chỉ định tháng này.' },
+    menubook:  { ja:'メニューブックと販促物を並べて、汚れや破れが分かるように撮ってください。', en:'Lay out the menu books and POP so stains or tears are visible.', vi:'Bày menu và vật phẩm quảng bá để thấy rõ vết bẩn hoặc rách.' }
+  };
   APP_VIEWS.openphoto = () => {
     const store = visibleStores()[0];
     const dk = dateKeyFor(store, Date.now());
-    const m = getMasters().find(x => x.id === 'openphoto') || { id:'openphoto', detect:'subrec', freq:'daily' };
+    const target = getPhotoTarget();
+    const m = getMasters().find(x => x.id === target) || { id:'openphoto', detect:'subrec', freq:'daily' };
     const done = detectSubmitted(store, m, dk);
-    const recent = subRows(SUB_KINDS.open).filter(r => visibleStores().includes(r.store)).sort((a, b) => b.t - a.t).slice(0, 6);
+    const title = L(m.name || { ja:'オープン写真', en:'Opening photo', vi:'Ảnh mở cửa' });
+    const hint = L(PHOTO_HINTS[target] || PHOTO_HINTS.openphoto);
+    const period = m.freq === 'monthly'
+      ? L({ ja:'今月は提出済みです（追加提出も可）。', en:'Submitted this month (you can add more).', vi:'Đã nộp tháng này (có thể thêm).' })
+      : L({ ja:'本日は提出済みです（追加提出も可）。', en:'Submitted today (you can add more).', vi:'Đã nộp hôm nay (có thể thêm).' });
+    // 同じ提出物の履歴だけを出す（オープン写真の中に月次の写真が混ざらないように）
+    const recent = subRows(SUB_KINDS.open)
+      .filter(r => visibleStores().includes(r.store) && String(r.item || '').split('|')[0] === target)
+      .sort((a, b) => b.t - a.t).slice(0, 6);
     return `
       <div class="card">
-        <h3>${L({ja:'オープン写真の提出',en:'Submit opening photo',vi:'Nộp ảnh mở cửa'})} — ${esc(storeShort(store))}</h3>
-        ${done ? `<p class="hint" style="display:block;color:#2a7">${L({ja:'本日は提出済みです（追加提出も可）。',en:'Submitted today (you can add more).',vi:'Đã nộp hôm nay (có thể thêm).'})}</p>` : `<p class="hint" style="display:block">${L({ja:'開店時の店内・外観を1枚。',en:'One photo of the store at opening.',vi:'Một ảnh cửa hàng khi mở cửa.'})}</p>`}
+        <h3>${esc(title)} — ${esc(storeShort(store))}</h3>
+        ${done ? `<p class="hint" style="display:block;color:#2a7">${period}</p>` : `<p class="hint" style="display:block">${esc(hint)}</p>`}
+        ${photoSubIds().length > 1 ? `<div class="seg" data-seg="phtarget" style="margin:2px 0 12px">${
+          photoSubIds().map(id => { const mm = getMasters().find(x => x.id === id) || {}; return `<button type="button" data-phtarget="${esc(id)}" class="${id===target?'on':''}">${esc(L(mm.name || id))}</button>`; }).join('')}</div>` : ''}
         <label class="fld"><span>${L({ja:'店舗',en:'Store',vi:'Cửa hàng'})}</span><select id="op_store">${visibleStores().map(s=>`<option>${esc(s)}</option>`).join('')}</select></label>
         <label class="fld"><span>${L({ja:'写真',en:'Photos',vi:'Ảnh'})}</span>
-          <div class="photo-drop" id="photoDrop"><div class="ph-ico">${svg('camera')}</div><div><b style="font-size:13px">${L({ja:'撮影して追加',en:'Take photos',vi:'Chụp ảnh'})}</b><br><small>${L({ja:'開店時の店内・外観',en:'Store interior/exterior at open',vi:'Nội/ngoại thất khi mở cửa'})}</small></div><input type="file" accept="image/*" multiple id="f_photo" hidden></div>
+          <div class="photo-drop" id="photoDrop"><div class="ph-ico">${svg('camera')}</div><div><b style="font-size:13px">${L({ja:'撮影して追加',en:'Take photos',vi:'Chụp ảnh'})}</b><br><small>${esc(hint)}</small></div><input type="file" accept="image/*" multiple id="f_photo" hidden></div>
           <div class="photo-thumbs" id="photoThumbs"></div>
         </label>
         <button class="btn-primary" data-topensubmit="1">${L({ja:'提出する',en:'Submit',vi:'Gửi'})}</button>
         <div class="hint">${L({ja:'※ 写真が無いと提出できません（提出漏れ防止）。',en:'A photo is required to submit.',vi:'Cần có ảnh mới gửi được.'})}</div>
       </div>
-      <div class="card"><h3>${L({ja:'最近のオープン写真',en:'Recent opening photos',vi:'Ảnh mở cửa gần đây'})}</h3>
+      <div class="card"><h3>${L({ja:'最近の提出',en:'Recent submissions',vi:'Đã nộp gần đây'})}</h3>
         ${recent.length ? recent.map(r=>{ const who = parseNote(r.note).by || ''; return `<div class="rep">${r.photos&&r.photos.length?`<img class="rep-photo" src="${photoThumb(r.photos[0])}" data-full="${photoFull(r.photos[0])}" alt="">`:`<span class="kind b">${L({ja:'写真',en:'Photo',vi:'Ảnh'})}</span>`}<div class="body"><div class="l1">${esc(storeShort(r.store))}</div><div class="l2">${timeAgo(r.t)}${who?' ・ '+esc(who):''}</div></div></div>`; }).join('') : `<div class="muted">${L({ja:'まだありません',en:'None yet',vi:'Chưa có'})}</div>`}
       </div>`;
   };
@@ -3420,15 +3534,15 @@
       // フィードバックの種類切替（このビュー内のセグメント）
       const fbSeg = e.target.closest('[data-seg="fbcat"] [data-v]');
       if (fbSeg) { document.querySelectorAll('[data-seg="fbcat"] button').forEach(x => x.classList.remove('on')); fbSeg.classList.add('on'); return; }
-      const t = e.target.closest('[data-tsub],[data-tmissing],[data-treminder],[data-tdrill],[data-tjudge],[data-thq],[data-timp],[data-topensubmit],[data-apitest],[data-apireset],[data-fbsend],[data-ackdone],[data-ackmemo],[data-inboxdone]');
+      const t = e.target.closest('[data-tsub],[data-tdid],[data-tmissing],[data-treminder],[data-tdrill],[data-tjudge],[data-thq],[data-timp],[data-topensubmit],[data-apitest],[data-apireset],[data-fbsend],[data-ackdone],[data-ackmemo],[data-inboxdone]');
       if (!t) return;
       if (t.dataset.inboxdone) { const cur = localStorage.getItem('yosakura_inbox_showdone') === '1'; localStorage.setItem('yosakura_inbox_showdone', cur ? '0' : '1'); render(); return; }
-      if (t.dataset.ackdone) { setAck(t.dataset.ackdone, 'done', ''); toast(L({ja:'対応済みにしました',en:'Marked done',vi:'Đã đánh dấu xử lý'})); render(); return; }
+      if (t.dataset.ackdone) { setAck(t.dataset.ackdone, 'done', ''); toast(L({ja:'対応済みにしました',en:'Marked done',vi:'Đã đánh dấu xử lý'})); render(true); return; }
       if (t.dataset.ackmemo) {
         const memo = prompt(L({ja:'対応した内容をメモできます（任意）',en:'Add a note (optional)',vi:'Ghi chú (tùy chọn)'}) || '', '');
         if (memo === null) return;
         setAck(t.dataset.ackmemo, 'done', memo.trim());
-        toast(L({ja:'対応済みにしました',en:'Marked done',vi:'Đã đánh dấu xử lý'})); render(); return;
+        toast(L({ja:'対応済みにしました',en:'Marked done',vi:'Đã đánh dấu xử lý'})); render(true); return;
       }
       if (t.dataset.fbsend) {
         const noteEl = document.getElementById('fb_note');
@@ -3492,13 +3606,31 @@
         const photos = thumbsEl ? Array.from(thumbsEl.querySelectorAll('.pt')).map(w => w.dataset.thumb).filter(Boolean).slice(0, 6) : [];
         if (!photos.length) { toast(L({ja:'写真を撮影・選択してください（提出漏れ防止）',en:'Please add a photo before submitting',vi:'Vui lòng thêm ảnh trước khi gửi'})); return; }
         const dk = dateKeyFor(store, Date.now());
-        postSub(SUB_KINDS.open, store, `openphoto|${dk}`, { by: submitterLabel(), role: getRole() }, photos);
+        // どの提出物として出すか（オープン写真／月次の衛生写真／メニューブック）
+        const target = getPhotoTarget();
+        const tm = getMasters().find(x => x.id === target);
+        postSub(SUB_KINDS.open, store, `${target}|${dk}`, { by: submitterLabel(), role: getRole() }, photos);
         pushAudit('open_submit', store);
-        toast(L({ja:'オープン写真を提出しました。ありがとうございます！',en:'Opening photo submitted. Thank you!',vi:'Đã gửi ảnh mở cửa. Cảm ơn!'}));
+        toast(`${L(tm && tm.name || {ja:'オープン写真',en:'Opening photo',vi:'Ảnh mở cửa'})}${L({ja:'を提出しました。ありがとうございます！',en:' submitted. Thank you!',vi:' đã gửi. Cảm ơn!'})}`);
         go('/app/kyou');
         return;
       }
-      if (t.dataset.tsub) { go(`/app/${t.dataset.tsub}`); return; }
+      // 「実施しました」＝画面を開かずにその場で記録する（卓上POPの交換など）
+      if (t.dataset.tdid) {
+        const store = visibleStores()[0];
+        const mid = t.dataset.tdid;
+        const mm = getMasters().find(x => x.id === mid);
+        postSub(SUB_KINDS.open, store, `${mid}|${dateKeyFor(store, Date.now())}`, { by: submitterLabel(), role: getRole() }, []);
+        pushAudit('did_submit', `${store}|${mid}`);
+        toast(`${L(mm && mm.name || { ja:'実施', en:'Task', vi:'Việc' })}${L({ ja:'を記録しました。ありがとうございます！', en:' recorded. Thank you!', vi:' đã ghi nhận. Cảm ơn!' })}`);
+        render(true); return;
+      }
+      // 同じ画面を複数の提出物が使うもの（チェックリスト5種／写真3種）は、どれを開くかを先に決めてから移動する
+      if (t.dataset.tsub) {
+        if (t.dataset.tsubmode) localStorage.setItem('yosakura_ckmode', t.dataset.tsubmode);
+        if (t.dataset.tsubphoto) localStorage.setItem('yosakura_photo_target', t.dataset.tsubphoto);
+        go(`/app/${t.dataset.tsub}`); return;
+      }
       if (t.dataset.tmissing) { const cur = localStorage.getItem('yosakura_sub_missingonly') === '1'; localStorage.setItem('yosakura_sub_missingonly', cur ? '0' : '1'); render(); return; }
       if (t.dataset.tdrill) { openTeishutsuDrill(t.dataset.tdrill); return; }
       if (t.dataset.treminder) {
@@ -3846,7 +3978,7 @@
     const map = getCommMod(); map[key] = { state, t: Date.now() };
     try { localStorage.setItem('yosakura_demo_commmod', JSON.stringify(map)); } catch (e) {}
     const store = key.split('|')[1] || '';
-    lastSync = Date.now(); pushAudit('comm_' + state, key); render();
+    lastSync = Date.now(); pushAudit('comm_' + state, key); render(true); // 一覧の途中で押すので位置を保つ
     postReport({ kind:'commmod', store, item:key, note: JSON.stringify({ state }), t: Date.now() });
   }
   /* ポジティブシャワー（横展開）＝2026-08-10 構築MTG A-05。
@@ -4018,7 +4150,8 @@
       name:{ ja:'アプリへのご意見', en:'App feedback', vi:'Góp ý ứng dụng' },
       desc:{ ja:'使ってみて気づいたことをお送りください', en:'Tell us what you noticed', vi:'Cho biết điều bạn nhận thấy' } });
   }
-  if (!appById('backend')) {
+  // 体験版では接続先の切り替えそのものを出さない（配る版なので、触れる余地を残さない）
+  if (!appById('backend') && !TAIKEN) {
     APPS.push({ id:'backend', group:'hq', icon:'lock', roles:['hq'],
       name:{ ja:'バックエンド設定', en:'Backend settings', vi:'Cài đặt backend' },
       desc:{ ja:'データの保存先（専用／共用）を切り替え', en:'Switch data backend (dedicated/shared)', vi:'Đổi nơi lưu dữ liệu' } });
@@ -4255,7 +4388,7 @@
       let done = getWhistleDone();
       done = done.includes(tv) ? done.filter(x => x !== tv) : done.concat(tv);
       try { localStorage.setItem('yosakura_whistle_done', JSON.stringify(done)); } catch (e) {}
-      render();
+      render(true); // 一覧の途中で押すので、読んでいた位置を保つ
     });
 
     // 店舗を変えたらメニュー選択肢を出し分け＋「その他」トグルを配線（食べ残し報告）
@@ -4365,7 +4498,7 @@
       liked.push(key); try { localStorage.setItem('yosakura_comm_liked', JSON.stringify(liked)); } catch (e) {}
       const map = getCommLike(); map[key] = Number(map[key] || 0) + 1;
       try { localStorage.setItem('yosakura_demo_commlike', JSON.stringify(map)); } catch (e) {}
-      lastSync = Date.now(); render();
+      lastSync = Date.now(); render(true); // 一覧の途中で押すので、読んでいた位置を保つ
       postReport({ kind:'commlike', store: key.split('|')[1] || '', item:key, t: Date.now() });
     });
     // 本部：公開／非公開
@@ -4512,6 +4645,19 @@
     // 使い方を順番に見る（役割ごとの案内をもう一度）
     document.querySelectorAll('[data-guide-tour]').forEach(b => b.onclick = () => openTour(0));
     document.querySelectorAll('[data-ckmode]').forEach(b => b.onclick = () => { localStorage.setItem('yosakura_ckmode', b.dataset.ckmode); render(); });
+    // 本部：シートの場所を保存する（コンプラチェックなど・全端末へ共有）
+    document.querySelectorAll('[data-msturl]').forEach(b => b.onclick = () => {
+      const id = b.dataset.msturl;
+      const el = document.getElementById(`msturl_${id}`);
+      const url = ((el && el.value) || '').trim();
+      if (url && !isHttp(url)) { toast(L({ ja:'https で始まるURLを入れてください', en:'Enter a URL starting with https', vi:'Nhập URL bắt đầu bằng https' })); return; }
+      const list = getMasters().map(m => m.id === id ? Object.assign({}, m, { url }) : m);
+      saveMasters(list);
+      toast(L({ ja:'保存しました', en:'Saved', vi:'Đã lưu' }));
+      render(true);
+    });
+    // 写真の提出物の切り替え（オープン写真／月次の衛生写真／メニューブック）
+    document.querySelectorAll('[data-phtarget]').forEach(b => b.onclick = () => { localStorage.setItem('yosakura_photo_target', b.dataset.phtarget); render(); });
     // 定期衛生：曜日の切替（手が空いていれば他の曜日を先に実施してもよい運用）
     document.querySelectorAll('[data-hygday]').forEach(b => b.onclick = () => { localStorage.setItem('yosakura_hygday', `${todayKey()}|${b.dataset.hygday}`); render(); });
     // チェックのON/OFF（店舗×モード×当日で保存）
@@ -4526,7 +4672,9 @@
       const t = Date.now(); lastSync = t;
       const meta = getCkMeta(); meta[key] = { by: submitterLabel(), t };
       try { localStorage.setItem('yosakura_demo_ckmeta', JSON.stringify(meta)); } catch (e) {}
-      render();
+      // ★1項目チェックするたびに画面の先頭へ戻っていた（2026-08-12 渉さんのご指摘）。
+      //   上から順に押していく画面なので、押すたびに戻ると実質使えない。読んでいた位置を保つ。
+      render(true);
       postReport({ kind:'ckdone', store, item:`${mode}||${todayKey()}`, note: JSON.stringify({ done: day, by: submitterLabel() }), t });
     });
     // 店舗独自項目：追加
@@ -4538,7 +4686,7 @@
       list.push({ id: `${mode}-x-${Date.now().toString(36)}`, label });
       all[mk2] = list; saveCkItems(all);
       const t = Date.now(); lastSync = t;
-      toast(L({ ja:'追加しました', en:'Added', vi:'Đã thêm' })); render();
+      toast(L({ ja:'追加しました', en:'Added', vi:'Đã thêm' })); render(true); // 画面の下のほうにあるので位置を保つ
       postReport({ kind:'ckitem', store, note: JSON.stringify({ mode, items: list }), t });
     };
     // 店舗独自項目：削除
@@ -4548,7 +4696,7 @@
       const all = getCkItems(); const list = (all[mk2] || []).filter(c => c.id !== id);
       all[mk2] = list; saveCkItems(all);
       const t = Date.now(); lastSync = t;
-      toast(L({ ja:'削除しました', en:'Removed', vi:'Đã xóa' })); render();
+      toast(L({ ja:'削除しました', en:'Removed', vi:'Đã xóa' })); render(true); // 画面の下のほうにあるので位置を保つ
       postReport({ kind:'ckitem', store, note: JSON.stringify({ mode, items: list }), t });
     });
 
