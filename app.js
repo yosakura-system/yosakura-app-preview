@@ -1115,7 +1115,7 @@
     "num_register": 'data:image/webp;base64,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'
   };
   /* </embed-photos> */
-  const APP_BUILD = 'yosakura-hq-v397';
+  const APP_BUILD = 'yosakura-hq-v398';
   let LATEST_BUILD = '';
   const BUILD_TAG = APP_BUILD;
   const $app = document.getElementById('app');
@@ -1806,12 +1806,12 @@
      本部（hq）の画面はこれまでのまま（本部側の配置替えは11月）。 */
   const pbPhotoKey_ = (m) => {
     if (!m) return '';
-    const own = { ck_open_photo:'kyou_check_open', ck_close_photo:'kyou_check_close', ichishoku:'kyou_first_dish' }[m.id]; if (own) return own;
+    const own = { ck_open_photo:'kyou_check_open', ck_close_photo:'kyou_check_close', ichishoku:'kyou_first_dish', utsuwa:'kyou_utsuwa' }[m.id]; if (own) return own;
     if (m.ckMode) return ({ open:'kyou_check_open', idle:'kyou_check_idle', sakura:'kyou_check_sakura', close:'kyou_check_close', hygiene:'kyou_hygiene' })[m.ckMode] || 'kyou_check_open';
     const byApp = { openphoto:'kyou_open_photo', firstphoto:'kyou_first_dish', soukatsu:'kyou_nippou', chukan:'kyou_nippou', zaiko:'kyou_stock', kizuki:'kyou_kizuki', kinshu:'num_register', pl:'kyou_tanaoroshi', storevideo:'miru_howto', handover:'kyou_handover', surveyqr:'kyou_survey' };
     if (m.linkApp && byApp[m.linkApp]) return byApp[m.linkApp];
     if (m.id && byApp[m.id]) return byApp[m.id];
-    const byId = { hygiene_d:'kyou_hygiene', hygiene_m:'kyou_hygiene', tip_photo:'kyou_first_dish', genkin_photo:'num_register', nikkei_idle:'kyou_nippou', nikkei_close:'kyou_nippou', utsuwa:'kyou_utsuwa', pop:'kyou_check_idle', compliance:'miru_manual' };
+    const byId = { hygiene_d:'kyou_hygiene', hygiene_m:'kyou_hygiene', tip_photo:'kyou_first_dish', genkin_photo:'num_register', nikkei_idle:'kyou_nippou', nikkei_close:'kyou_nippou', utsuwa:'kyou_utsuwa', pop:'kyou_check_idle', pop_week:'kyou_check_idle', staffroom:'kyou_hygiene', compliance:'miru_manual' };
     return byId[m.id] || '';
   };
   const pbImg_ = (key, cls) => (typeof PHOTOS !== 'undefined' && PHOTOS[key])
@@ -1858,7 +1858,7 @@
     const m = it.m;
     const done = !it.manual && !!it.submitted;
     const late = !!it.overdue;
-    const openArg = m.ckMode ? ` data-tsubmode="${m.ckMode}"` : (m.linkApp === 'openphoto' ? ` data-tsubphoto="${esc(m.id)}"` : '');
+    const openArg = m.ckMode ? ` data-tsubmode="${m.ckMode}"` : (m.linkApp === 'openphoto' ? ` data-tsubphoto="${esc(m.id)}"` : m.detect === 'zaikowk' ? ' data-tsubq="wk=1"' : '');
     const dueTxt = m.freq === 'weekly' ? L({ja:'今週中',en:'This week',vi:'Trong tuần'}) : m.freq === 'monthly' ? L({ja:'今月中',en:'This month',vi:'Trong tháng'}) : m.freq === 'quarterly' ? L({ja:'今四半期',en:'This quarter',vi:'Quý này'}) : it.prev
       ? `${L({ja:'前日分',en:'Yesterday',vi:'Hôm qua'})}（${esc(String(it.dk).slice(5))}）・${L({ja:'締切',en:'Due',vi:'Hạn'})} ${esc(m.due || '')}`
       : `${L({ja:'締切',en:'Due',vi:'Hạn'})} ${esc(m.due || '')}`;
@@ -1950,13 +1950,13 @@
     /* ★2026-10-20 神田さん「週次、月次をある程度ワンクリックで見れるように」＝案Bの見本どおり、今週・今月の提出物をホームに1件ずつ並べる（押すとその入力へ直接）。
        済んだものは ✓ で残す。定期衛生（曜日別）は今週の先頭に入口を残す */
     const allIts = todayItemsFor(store).filter(it => !(it.manual && !it.m.linkApp && !isHttp(it.m.url)));   // 押しても開く先が無い行（PL＝アプリでは受けていない）は出さない
-    const wkIts = allIts.filter(it => it.m.freq === 'weekly');
+    const wkIts = allIts.filter(it => it.m.freq === 'weekly' && it.m.oblig === 'required');   // ★2026-10-20 今週＝必須だけ。任意の週次は定期衛生（曜日別）に入れる
     const moIts = allIts.filter(it => it.m.freq === 'monthly' || it.m.freq === 'quarterly');
-    const hygRow = `<button class="pb-row" data-open="shukan">${pbImg_('kyou_hygiene')}<span class="pb-rowtx"><span class="pb-nm">${L({ja:'定期衛生（曜日別）',en:'Periodic hygiene',vi:'Vệ sinh định kỳ'})}</span><span class="pb-sub">${L({ja:'今日の曜日の箇所',en:'Today’s spots',vi:'Hạng mục hôm nay'})}</span></span><span class="pb-rt">${svg('chev')}</span></button>`;
+    const hygRow = `<button class="pb-row" data-open="shukan">${pbImg_('kyou_hygiene')}<span class="pb-rowtx"><span class="pb-nm">${L({ja:'定期衛生（曜日別）',en:'Periodic hygiene',vi:'Vệ sinh định kỳ'})}</span><span class="pb-sub">${L({ja:'任意・今日の曜日の箇所',en:'Optional · today’s spots',vi:'Tùy chọn · hạng mục hôm nay'})}</span></span><span class="pb-rt">${svg('chev')}</span></button>`;
     const wkLeft = wkIts.filter(it => !it.manual && !it.submitted).length, moLeft = moIts.filter(it => !it.manual && !it.submitted).length;
     const leftTx = (n) => n ? `${L({ja:'残り',en:'Left',vi:'Còn'})} ${n}${L({ja:'件',en:'',vi:' mục'})}` : L({ja:'すべて済み',en:'All done',vi:'Xong hết'});
-    const wk = `<div class="pb-sec" id="pbwk"><h2>${L({ja:'今週',en:'This week',vi:'Tuần này'})}</h2><small>${L({ja:'週に1回・曜日は店で決めてよい',en:'Once a week, any day',vi:'Mỗi tuần 1 lần'})} ・ ${leftTx(wkLeft)}</small></div>
-      <div class="pb-card">${hygRow}${wkIts.map(pbFlowRow_).join('')}</div>
+    const wk = `<div class="pb-sec" id="pbwk"><h2>${L({ja:'今週',en:'This week',vi:'Tuần này'})}</h2><small>${L({ja:'必須・週に1回（曜日は店で決めてよい）',en:'Required, once a week (any day)',vi:'Bắt buộc, mỗi tuần 1 lần'})} ・ ${leftTx(wkLeft)}</small></div>
+      <div class="pb-card">${wkIts.map(pbFlowRow_).join('')}${hygRow}</div>
       ${moIts.length ? `<div class="pb-sec" id="pbmo"><h2>${L({ja:'今月',en:'This month',vi:'Tháng này'})}</h2><small>${L({ja:'月に1回のもの',en:'Once a month',vi:'Mỗi tháng 1 lần'})} ・ ${leftTx(moLeft)}</small></div>
       <div class="pb-card">${moIts.map(pbFlowRow_).join('')}</div>` : ''}`;
     const nippouCard = pbNippouCard_(store, items.find(isNippou));
@@ -3003,10 +3003,10 @@
      f＝'' 毎日／'mon,thu' 月・木／'sat' 土 …（曜日の英略を , で並べる）。f が無い品目は区分名から補う（長堀橋の「月・木に確認」） */
   const ZK_DOW = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
   const ZK_DOW_JA = { sun:'日', mon:'月', tue:'火', wed:'水', thu:'木', fri:'金', sat:'土' };
-  const ZK_FREQ_OPTS = [['', { ja:'毎日', en:'Daily', vi:'Hằng ngày' }], ['mon,thu', { ja:'月・木', en:'Mon & Thu', vi:'T2 & T5' }], ['mon', { ja:'月', en:'Mon', vi:'T2' }], ['tue', { ja:'火', en:'Tue', vi:'T3' }], ['wed', { ja:'水', en:'Wed', vi:'T4' }], ['thu', { ja:'木', en:'Thu', vi:'T5' }], ['fri', { ja:'金', en:'Fri', vi:'T6' }], ['sat', { ja:'土', en:'Sat', vi:'T7' }], ['sun', { ja:'日', en:'Sun', vi:'CN' }]];
-  function zkFreqOf(it) { if (it && it.f != null && it.f !== '') return String(it.f); const g = String((it && it.g) || ''); return /月・木/.test(g) ? 'mon,thu' : /土曜/.test(g) ? 'sat' : ''; }
+  const ZK_FREQ_OPTS = [['', { ja:'毎日', en:'Daily', vi:'Hằng ngày' }], ['week', { ja:'週に1回', en:'Weekly', vi:'Mỗi tuần' }], ['mon,thu', { ja:'月・木', en:'Mon & Thu', vi:'T2 & T5' }], ['mon', { ja:'月', en:'Mon', vi:'T2' }], ['tue', { ja:'火', en:'Tue', vi:'T3' }], ['wed', { ja:'水', en:'Wed', vi:'T4' }], ['thu', { ja:'木', en:'Thu', vi:'T5' }], ['fri', { ja:'金', en:'Fri', vi:'T6' }], ['sat', { ja:'土', en:'Sat', vi:'T7' }], ['sun', { ja:'日', en:'Sun', vi:'CN' }]];
+  function zkFreqOf(it) { if (it && /^器（/.test(String(it.g || ''))) return 'week'; if (it && it.f != null && it.f !== '') return String(it.f); const g = String((it && it.g) || ''); return /月・木/.test(g) ? 'mon,thu' : /土曜/.test(g) ? 'sat' : ''; }
   const zkFreqLabel = (f) => { const o = ZK_FREQ_OPTS.find(x => x[0] === f); return o ? L(o[1]) : f.split(',').map(d => ZK_DOW_JA[d] || d).join('・'); };
-  function zkDue(it, dow) { const f = zkFreqOf(it); if (!f) return true; const d = ZK_DOW[dow == null ? new Date().getDay() : dow]; return f.split(',').includes(d); }
+  function zkDue(it, dow) { const f = zkFreqOf(it); if (!f) return true; if (f === 'week') return false; const d = ZK_DOW[dow == null ? new Date().getDay() : dow]; return f.split(',').includes(d); }
   /* 今日確認する品目があるか（品目未登録なら true＝登録を促す画面を出す） */
   function zkDueToday(store, dow) { const m = zkMaster(store); return !m.length || m.some(it => zkDue(it, dow)); }
   function zkStore() {
@@ -3018,7 +3018,7 @@
   function zkMaster(store) {
     const rows = getZk('zaikomaster').filter(r => r.store === store).sort((a, b) => b.t - a.t);
     const p = rows.length ? parseNote(rows[0].note) : null;
-    const saved = (p && Array.isArray(p.items)) ? p.items.filter(it => it && it.n) : [];
+    const saved = (p && Array.isArray(p.items)) ? p.items.filter(it => it && it.n).map(it => /^器（/.test(String(it.g || '')) ? Object.assign({}, it, { g: ZK_TW_G, f: 'week' }) : it) : [];
     if (!saved.length) return zkDefaultsFor_(store);   // 保存が無ければ既定（在庫チェック表の転記＋業態の器）
     /* ★店長が保存済みの店（牛カツ富士山 9/19）にも、業態の器を自動で足す（画面293・2026-09-25 神田さん「牛カツ富士山の器が反映されてない」）。
        器は本部（田中さん）の週次のお願い＝店の保存を待たずに出す。同名が保存にあれば足さない */
@@ -3027,6 +3027,8 @@
     return saved.concat(tw);
   }
   const zkIsDefault = (store) => !getZk('zaikomaster').some(r => r.store === store);
+  const zkWeekItems_ = (store) => zkMaster(store).filter(it => zkFreqOf(it) === 'week');
+  const zkWkMode_ = () => { try { return currentRoute().params.get('wk') === '1'; } catch (e) { return false; } };
   /* ★器（週次・水曜に数える）＝田中さん 2026-09-25「週次で器の棚卸し・チップの確認」（いる・いらないシート No.59）。
      出典＝本部ドライブ「2.初回発注 備品リスト」（2026-09-25 読取）
        寿司＝2.寿司世桜備品【心斎橋店】のマルシン・兼光の器（個数14＝席数）
@@ -3034,8 +3036,9 @@
        牛カツ＝7.和牛世桜備品【広島】本部手配分の「[牛カツ] 茶碗×24」＋全業態共通のマルシン行（サラダ皿・牛カツを運ぶ皿）
        和牛・日本料理・手巻き寿司＝備品リストに器の一覧が無い → 全業態共通の6品だけ（店長が「品目・基準在庫」で足す）
      std＝初回発注の個数（これを下回ったら「減っている」の目安）。数が分からない物は空欄＝発注リストには出ない */
-  const ZK_TW_G = '器（水曜に数える）';
-  const zkTw_ = (rows) => rows.map(r => ({ g: ZK_TW_G, n: r[0], std: r[2] == null ? '' : r[2], u: r[1], f: 'wed' }));
+  /* ★2026-10-20 神田さん「曜日に固定せず、週に1回の業務として」＝器は f:'week'（その週のうちに1回）。日々の在庫の入力には出さず、提出物「器の数と欠け」（今週）から開く */
+  const ZK_TW_G = '器（週に1回）';
+  const zkTw_ = (rows) => rows.map(r => ({ g: ZK_TW_G, n: r[0], std: r[2] == null ? '' : r[2], u: r[1], f: 'week' }));
   const ZK_TW_COMMON = [['茶碗', '個', ''], ['汁椀', '個', ''], ['湯呑', '個', ''], ['グラス', '個', ''], ['ビールグラス', '個', ''], ['箸置き', '個', '']];
   const ZK_TABLEWARE = {
     '鰻': zkTw_([['３連皿', '枚', 50], ['茶碗', '個', 50], ['どんぶり', '個', 50], ['汁椀', '個', ''], ['卓上薬味入れ', '個', 22], ['卓上タレ入れ', '個', 11], ['湯呑', '個', ''], ['グラス', '個', ''], ['ビールグラス', '個', ''], ['箸置き', '個', '']]),
@@ -3118,6 +3121,7 @@
     </div>`;
   }
   APP_VIEWS.zaiko = () => {
+    if (zkWkMode_()) return zkWeekView_();
     if (isPb() && getRole() !== 'hq') _pbHead = { t: L({ ja:'在庫の数', en:'Stock count', vi:'Số tồn kho' }), d: L({ ja:'締めに数えて入れるだけ。基準より少ない品目は発注リストに出ます。', en:'Count at closing. Items below the minimum go to the order list.', vi:'Đếm khi đóng ca. Mục dưới định mức vào danh sách đặt.' }) };
     const vis = visibleStores(); const store = zkStore();
     let tab = ''; try { tab = localStorage.getItem(ZK_LS_TAB) || ''; } catch (e) {}
@@ -3200,6 +3204,27 @@
         ${storeSel}${tabBar}${body}
       </div>`;
   };
+  /* ★器の数と欠け（週に1回・2026-10-20）＝提出物「今週」の行から1回で開く。器の品目だけを並べ、提出は在庫の数と同じ置き場（wk の印つき）。
+     日々の「在庫の数」の提出済みには数えない。数えるときに欠け・ひびを見て、ある器は取り除く（報告は不要＝10/12 神田さん） */
+  function zkWeekView_() {
+    const vis = visibleStores(); const store = zkStore();
+    const lead = L({ ja:'週に1回、都合のよい日に数えます。欠け・ひびのある器は使わずに破棄してください。', en:'Count once a week, any day. Discard chipped or cracked pieces.', vi:'Đếm mỗi tuần 1 lần. Bỏ đồ mẻ/nứt.' });
+    if (isPb() && getRole() !== 'hq') _pbHead = { t: L({ ja:'器の数と欠け', en:'Tableware count & chips', vi:'Đếm bát đĩa & đồ mẻ' }), d: lead };
+    const all = zkMaster(store).map((it, i) => [it, i]).filter(([it]) => zkFreqOf(it) === 'week');
+    const l = zkLatest(store); const today = dateKeyFor(store, Date.now()); const draft = zkDraft(store, today);
+    const wkDone = getZk('zaiko').some(r => r.store === store && (parseNote(r.note) || {}).wk && weekKeyOf(dateKeyFor(store, r.t)) === weekKeyOf(today));
+    const storeSel = vis.length > 1 ? `<label class="fld"><span>${L({ ja:'店舗', en:'Store', vi:'Cửa hàng' })}</span><select id="zk_store">${vis.map(x => `<option${x === store ? ' selected' : ''}>${esc(x)}</option>`).join('')}</select></label>` : '';
+    const rows = all.map(([it, i]) => { const cur = l && l.q[it.n]; const below = it.std != null && it.std !== '' && cur != null && cur !== '' && Number(cur) < Number(it.std);
+      return `<div class="zk-in${below ? ' low' : ''}"><label for="zk_q${i}"><b>${esc(it.n)}</b><small>${L({ ja:'基準', en:'min', vi:'định mức' })} ${it.std != null && it.std !== '' ? esc(String(it.std)) : '—'}${esc(it.u || '')}${cur != null && cur !== '' ? ` ・ ${L({ ja:'前回', en:'last', vi:'lần trước' })} ${esc(String(cur))}` : ''}</small></label>
+      ${isPb() ? `<button type="button" class="zk-st" data-zkstep="${i}:-1" aria-label="-">−</button>` : ''}<input type="text" inputmode="decimal" id="zk_q${i}" data-zkname="${esc(it.n)}" value="${draft[it.n] != null ? esc(String(draft[it.n])) : ''}" placeholder="${cur != null && cur !== '' ? esc(String(cur)) : '0'}">${isPb() ? `<button type="button" class="zk-st" data-zkstep="${i}:1" aria-label="+">＋</button>` : ''}<span class="muted">${esc(it.u || '')}</span></div>`; }).join('');
+    const body = all.length ? `
+      ${wkDone ? `<div class="hint" style="display:block">${L({ ja:'今週はもう数えています。直すときはそのまま入れ直して提出してください。', en:'Already counted this week; resubmit to correct.', vi:'Tuần này đã đếm; gửi lại để sửa.' })}</div>` : ''}
+      <div class="zk-grp" style="margin-top:4px">${esc(ZK_TW_G)}</div>${rows}
+      <label class="fld"><span>${L({ ja:'名前', en:'Your name', vi:'Tên bạn' })}</span><input type="text" id="zk_by" value="${esc(getUserName() || '')}"></label>
+      <button class="btn-primary" id="submitZk">${L({ ja:'器の数を提出する', en:'Submit tableware count', vi:'Gửi số bát đĩa' })}</button>`
+      : `<div class="muted">${L({ ja:'この店の器の品目はまだありません。店長が「在庫」の「品目・基準在庫」で足せます。', en:'No tableware items for this store yet. The manager can add them under Items.', vi:'Chưa có mặt hàng bát đĩa. Quản lý có thể thêm ở mục Mặt hàng.' })}</div>`;
+    return `${isPb() && getRole() !== 'hq' ? '' : `<p class="hint" style="display:block">${lead}</p>`}<div class="card"><h3>${L({ ja:'器の数と欠け', en:'Tableware count & chips', vi:'Đếm bát đĩa & đồ mẻ' })} — ${esc(storeShort(store))}</h3>${storeSel}${body}</div>`;
+  }
   APP_VIEWS.kinshu = () => {
     const vis = visibleStores();
     const recent = getKinshu().filter(r => vis.includes(r.store)).sort((a, b) => b.t - a.t).slice(0, 5);
@@ -3645,7 +3670,7 @@
         {ja:'食器類のケース・破損確認',d:{ja:'食器を出してケース内をアルコールで拭く／戻してテプラを貼り直す／ひび割れや破損がないか確認'}},
         {ja:'冷凍庫（内部・外部）',d:{ja:'中身を全部出す／ダスターを湿らせアルコールで拭く／ストック用ケースはシンクで洗浄／外側の扉も'}},
         {ja:'冷凍庫（フィルター）',d:{ja:'取り外してシンクで洗い流す／乾かしてから戻す'}},
-        {ja:'器の数と欠け（チップ）',en:'Tableware count & chips',vi:'Đếm bát đĩa & đồ mẻ',go:'/app/zaiko',goT:{ja:'在庫数を入力へ',en:'Open Stock count',vi:'Mở Tồn kho'},d:{ja:'週に1回が最低。曜日は店で決めてよい（水曜は目安。変えるときは、この項目を外して、やりたい曜日に足す）／種類ごとに数えて「在庫数」の器の欄へ／数えるときに欠け・ひびをしっかり見て、ある器は取り除いて使わない（怪我のもと・報告は不要）',en:'At least once a week; the store picks the day (Wednesday is just a guide — hide this item and add it to another day if you prefer). Count each type into Stock (tableware). While counting, check carefully for chips and cracks and remove those pieces (no report needed).',vi:'Ít nhất 1 lần/tuần; cửa hàng tự chọn ngày (thứ Tư chỉ là gợi ý — có thể ẩn mục này và thêm vào ngày khác). Đếm từng loại vào Tồn kho (bát đĩa). Khi đếm, kiểm tra kỹ đồ mẻ/nứt và loại bỏ (không cần báo cáo).'}} ] },   /* ★2026-10-12 神田さん「チップは報告いらない。器の棚卸のときにしっかり確認。曜日は固定せず店舗に委ねる。週1回が最低」 */
+      ] },   /* ★2026-10-20 器の数と欠けは定期衛生（水曜）から外し、提出物の「今週」の1件へ（神田さん「曜日に固定せず、週に1回の業務としてワンクリックで」）。数え方は在庫の数の器の画面に */
       { g:{ja:'ホール',en:'Hall',vi:'Sảnh'}, items:[
         {ja:'レジカウンター周辺',d:{ja:'レジ周りの埃／整理整頓／アルコールで全体を拭く／金銭トレイ・チラシ立ても／カウンターの後ろも／傘立ては水を捨てて掃除'}},
         {ja:'バックヤード',d:{ja:'何がどこにあるか見て分かるように整理し、名称を表示／昼と夜の物を分ける／使ったものは必ず元に戻す'}},
@@ -3669,8 +3694,7 @@
     { d:6, g:[
       { g:{ja:'キッチン',en:'Kitchen',vi:'Bếp'}, items:[
         {ja:'ポットの洗浄',d:{ja:'専用の洗浄剤を使用方法に従って／本体もアルコールで拭く（放置すると汚れが落ちなくなり故障の原因に）'}},
-        {ja:'シンク下・作業台下',d:{ja:'下の物を全部出す／アルコールで汚れを拭き取る／出した物が汚れていれば拭く／元に戻す（全部出さないときれいにならない）'}},
-        {ja:'スタッフルーム・厨房の整理整頓',en:'Staff room & kitchen tidy-up',vi:'Dọn phòng nhân viên & bếp',d:{ja:'私物・段ボール・書類を片づける／ゴミ箱の中とフードダクトの周りも見る',en:'Clear personal items, boxes and papers; check inside bins and around the hood.',vi:'Dọn đồ cá nhân, thùng, giấy; xem trong thùng rác và quanh hút mùi.'}} ] },
+        {ja:'シンク下・作業台下',d:{ja:'下の物を全部出す／アルコールで汚れを拭き取る／出した物が汚れていれば拭く／元に戻す（全部出さないときれいにならない）'}} ] },   /* ★2026-10-20 土曜の整理整頓（スタッフルーム）は定期衛生から外し、提出物の「今週」の必須へ（神田さん「今伝えたものは必須に」） */
       { g:{ja:'ホール',en:'Hall',vi:'Sảnh'}, items:[
         {ja:'外看板の清掃',d:{ja:'フィルムやフレームを拭き上げ／同時に外観の清掃も／コンセントの故障やポスターの色褪せも確認'}},
         {ja:'椅子',d:{ja:'フレームや脚を拭き上げ／足を乗せる場所の黒ずみは必ず落とす／脚裏のアジャスターやクッションが取れていないか'}} ] } ] }
@@ -7858,6 +7882,13 @@
       { id:'kizuki',     name:{ja:'気づきの報告',en:'Daily insights',vi:'Ghi nhận cuối ca'},           oblig:'store',    freq:'daily', due:'23:59', target:'all', hqReview:'none',  detect:'kizuki', linkApp:'kizuki',
         how:{ja:'クローズ後に、その日の気づきを共有してください（無い日は出さなくて大丈夫です）',en:'Share what you noticed after closing (skip if nothing)',vi:'Sau khi đóng cửa, chia sẻ điều bạn nhận thấy (không có thì bỏ qua)'} },
       // ── 毎週 ──
+      /* ★器の数と欠け（2026-10-20 神田さん「曜日に固定せず、週に1回の業務としてワンクリックで」）＝これまで定期衛生の水曜に入っていた。
+         今週のうちに1回、器の画面（在庫の数の器の品目だけ）で数えて提出。チップは報告不要＝数えるときに取り除く（10/12） */
+      /* ★スタッフルーム・厨房の整理整頓（田中さん 9/18 全店発信④＝見えない場所の清掃）＝週に1回・押すだけ（2026-10-20 神田さん「必須に」） */
+      { id:'staffroom', name:{ja:'スタッフルーム・厨房の整理整頓',en:'Staff room & kitchen tidy-up',vi:'Dọn phòng nhân viên & bếp'}, oblig:'required', freq:'weekly', due:'23:59', target:'all', hqReview:'none', detect:'didit', autoAdd:true,
+        how:{ja:'週に1回。私物・段ボール・書類を片づけ、ゴミ箱の中とフードダクトの周りも見たら「実施しました」を押してください',en:'Once a week: clear personal items, boxes and papers; check bins and around the hood, then tap “Done”',vi:'Mỗi tuần 1 lần: dọn đồ cá nhân, thùng, giấy; xem thùng rác và quanh hút mùi rồi bấm “Đã làm”'} },
+      { id:'utsuwa', name:{ja:'器の数と欠け',en:'Tableware count & chips',vi:'Đếm bát đĩa & đồ mẻ'}, oblig:'required', freq:'weekly', due:'23:59', target:'all', hqReview:'none', detect:'zaikowk', linkApp:'zaiko', autoAdd:true,
+        how:{ja:'週に1回、都合のよい日に器を種類ごとに数えて提出してください（欠け・ひびのある器は使わずに破棄）',en:'Once a week, count tableware by type and submit (discard chipped or cracked pieces)',vi:'Mỗi tuần 1 lần, đếm bát đĩa theo loại và gửi (bỏ đồ mẻ/nứt)'} },
       { id:'pop_week',   name:{ja:'卓上POPの交換',en:'Table POP replacement',vi:'Thay POP bàn'},        oblig:'required', freq:'weekly', due:'23:59', target:'gyotai_in', gyotai:['gyukatsu'], hqReview:'none', detect:'didit', how:{ja:'新しいものと交換したら「実施しました」を押してください',en:'Replace with new ones, then tap “Done”',vi:'Thay mới rồi bấm “Đã làm”'} }, // 牛カツは油汚れ対策で週1
       // ── 毎月 ──
       /* ★総括表とPLは別のもの（2026-08-12 神田さんのご指摘で整理）。
@@ -8039,7 +8070,8 @@
     if (m.target === 'gyotai_in' && Array.isArray(m.gyotai) && !m.gyotai.includes(storeMeta(store).gyotai)) return false; // 指定業態のみ（例：牛カツのみ）
     if (m.target === 'gyotai_ex' && Array.isArray(m.gyotai) && m.gyotai.includes(storeMeta(store).gyotai)) return false;  // 指定業態を除く（例：牛カツ以外）
     if ((m.id === 'ck_open' || m.id === 'ck_close') && CK_PHOTO_STORES_.includes(store)) return false;   // 写真で出す店（ck_open_photo／ck_close_photo）
-    if (m.detect === 'zaiko' && !zkDueToday(store)) return false;   // 在庫数の入力＝今日確認する品目が無い日は出さない（2026-09-19）
+    if (m.detect === 'zaiko' && !zkDueToday(store)) return false;
+    if (m.detect === 'zaikowk' && !zkWeekItems_(store).length) return false;   // 器の品目が無い店には出さない   // 在庫数の入力＝今日確認する品目が無い日は出さない（2026-09-19）
     return true;
   }
   // 週キー（月曜始まり）＝週次提出の「今週提出済み」判定に使用
@@ -8070,7 +8102,8 @@
       if (m.detect === 'chukan') return getReports().some(r => r.kind === 'chukan' && r.store === store && inScope(r.t));
       // 金種別入力（レジクローズ）＝当日の kinshu 記録が1件でもあれば提出済み
       if (m.detect === 'kinshu') return getReports().some(r => r.kind === 'kinshu' && r.store === store && inScope(r.t));
-      if (m.detect === 'zaiko')  return getReports().some(r => r.kind === 'zaiko' && r.store === store && inScope(r.t));
+      if (m.detect === 'zaiko')  return getReports().some(r => r.kind === 'zaiko' && r.store === store && inScope(r.t) && !(parseNote(r.note) || {}).wk);   // 器の画面からの提出（wk）は日々の在庫に数えない
+      if (m.detect === 'zaikowk') return getReports().some(r => r.kind === 'zaiko' && r.store === store && inScope(r.t) && (parseNote(r.note) || {}).wk);
       if (m.detect === 'checks') { const c = jget(LS.checks, []); return Array.isArray(c) && c.some(r => r.store === store && inScope(r.t)); }
       /* アプリのチェックリスト＝★その日の項目が「全部」終わったときだけ提出済みとする。
          2026-08-12 神田さんのご指摘で修正。以前は1つでもチェックすれば実施とみなしていたため、
@@ -8122,7 +8155,7 @@
        ここで「どれを開くか」を渡さないと、前回見ていた種類が開いてしまう。
        （2026-08-12 神田さんのご指摘。オープンを押したのにアイドルが開く状態だった） */
     const openArg = it.m.ckMode ? ` data-tsubmode="${it.m.ckMode}"`
-      : (it.m.linkApp === 'openphoto' ? ` data-tsubphoto="${esc(it.m.id)}"` : '');
+      : (it.m.linkApp === 'openphoto' ? ` data-tsubphoto="${esc(it.m.id)}"` : it.m.detect === 'zaikowk' ? ' data-tsubq="wk=1"' : '');
     /* 「実施するだけ」の項目（卓上POPの交換など）は、開く画面が無い。
        写真も要らないので、その場で押せる「実施しました」を出す。
        押した記録は写真の提出と同じ置き場に残るので、本部からも実施状況が見える。 */
@@ -9573,7 +9606,7 @@
       if (t.dataset.tsub) {
         if (t.dataset.tsubmode) localStorage.setItem('yosakura_ckmode', t.dataset.tsubmode);
         if (t.dataset.tsubphoto) localStorage.setItem('yosakura_photo_target', t.dataset.tsubphoto);
-        go(`/app/${t.dataset.tsub}`); return;
+        go(`/app/${t.dataset.tsub}${t.dataset.tsubq ? '?' + t.dataset.tsubq : ''}`); return;
       }
       if (t.dataset.tmissing) { const cur = localStorage.getItem('yosakura_sub_missingonly') === '1'; localStorage.setItem('yosakura_sub_missingonly', cur ? '0' : '1'); render(); return; }
       if (t.dataset.tdrill) { openTeishutsuDrill(t.dataset.tdrill); return; }
@@ -11243,7 +11276,7 @@
       if (!n) { toast(L({ ja:'在庫数を1つ以上入れてください', en:'Enter at least one count', vi:'Nhập ít nhất một số' })); return; }
       const by = String((document.getElementById('zk_by') || {}).value || '').trim(); if (by) setUserName(by);
       const t = Date.now();
-      const rep = { kind:'zaiko', store, item: dateKeyFor(store, t), note: JSON.stringify({ q, by: by || submitterLabel() }), photos: [], t };
+      const rep = { kind:'zaiko', store, item: dateKeyFor(store, t), note: JSON.stringify(Object.assign({ q, by: by || submitterLabel() }, zkWkMode_() ? { wk: 1 } : {})), photos: [], t };
       try { const reps = getReports(); reps.push(rep); saveReports(reps); } catch (e) {}
       zkDraftClear();
       lastSync = t;
